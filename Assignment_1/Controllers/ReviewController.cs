@@ -30,13 +30,13 @@ namespace Assignment_1.Controllers
         [HttpDelete("{Id:int}")]
         public IActionResult DeleteReview(int movieId, int Id)
         {
-            return NoContent();
+            return Ok();
         }
 
         [HttpPut("{Id:int}")]
         public IActionResult UpdateReview(int movieId, int Id)
         {
-            return NoContent();
+            return Ok();
         }
 
     }
