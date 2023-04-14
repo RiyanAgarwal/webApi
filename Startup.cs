@@ -23,6 +23,19 @@ namespace Assignment_2
         {
             services.AddSingleton<IActorService, ActorService>();
             services.AddSingleton<IActorRepository, ActorRepository>();
+
+            services.AddSingleton<IProducerService, ProducerService>();
+            services.AddSingleton<IProducerRepository, ProducerRepository>();
+
+            services.AddSingleton<IMovieService, MovieService>();
+            services.AddSingleton<IMovieRepository, MovieRepository>();
+
+            services.AddSingleton<IGenreService, GenreService>();
+            services.AddSingleton<IGenreRepository, GenreRepository>();
+
+            services.AddSingleton<IReviewService, ReviewService>();
+            services.AddSingleton<IReviewRepository, ReviewRepository>();
+
             services.AddAutoMapper(typeof(Startup));
             services.AddControllers();
         }

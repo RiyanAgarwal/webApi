@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Assignment_2.Models.Request;
+using Assignment_2.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace Assignment_2.Controllers
 {
@@ -8,35 +11,99 @@ namespace Assignment_2.Controllers
     [ApiController]
     public class GenreController : ControllerBase
     {
+        private readonly IGenreService _genreService;
+        public GenreController(IGenreService genreService)
+        {
+            _genreService = genreService;
+        }
 
         [HttpPost]
-        public IActionResult AddMovie([FromBody] int Id)
+        public IActionResult AddGenre([FromBody] RequestGenre genre)
         {
-            return Created($"~api/genres/{Id}", Id);
+            try
+            {
+                var createdGenreId = _genreService.Create(genre);
+                return Created($"~api/genres/{createdGenreId}", createdGenreId);
+            }
+            catch (ArgumentException e)
+            {
+                return BadRequest(e.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         [HttpGet]
         public IActionResult GetGenres()
         {
-            return Ok();
+            try
+            {
+                return Ok(_genreService.GetAll());
+
+            }
+            catch (ArgumentNullException e)
+            {
+                return NotFound(e.Message);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
         }
 
         [HttpGet("{Id:int}")]
         public IActionResult GetGenreById(int Id)
         {
-            return Ok();
+            try
+            {
+                return Ok(_genreService.Get(Id));
+            }
+            catch (ArgumentException e)
+            {
+                return BadRequest(e.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         [HttpDelete("{Id:int}")]
         public IActionResult DeleteGenre(int Id)
         {
-            return Ok();
+            try
+            {
+                _genreService.Delete(Id);
+                return Ok();
+            }
+            catch (ArgumentException e)
+            {
+                return BadRequest(e.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         [HttpPut("{Id:int}")]
-        public IActionResult UpdateGenre(int Id)
+        public IActionResult UpdateGenre(int Id, RequestGenre genre)
         {
-            return Ok();
+            try
+            {
+                _genreService.Update(Id, genre);
+                return Ok();
+            }
+            catch (ArgumentException e)
+            {
+                return BadRequest(e.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
     }

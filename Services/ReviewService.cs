@@ -14,15 +14,16 @@ namespace Assignment_2.Services
         private readonly IReviewRepository _reviewRepository;
         private readonly IMapper _mapper;
         private readonly IMovieRepository _movieRepository;
-        public ReviewService(IReviewRepository reviewRepository, IMapper mapper)
+        public ReviewService(IReviewRepository reviewRepository, IMapper mapper,IMovieRepository movieRepository)
         {
             _reviewRepository = reviewRepository;
             _mapper = mapper;
+            _movieRepository = movieRepository;
         }
         public int Create(RequestReview review)
         {
             if (string.IsNullOrEmpty(review.Message) || 
-                !(_movieRepository.GetAll().Select(x=>x.Id).Contains(review.MovieId)))
+                !(_movieRepository.GetAll().Select(x=>x.Id).DefaultIfEmpty(0).Contains(review.MovieId)))
                     throw new ArgumentException("Invalid data");
             var maxId = _reviewRepository.GetAll().Select(x => x.Id).DefaultIfEmpty(0).Max();
             var reviewToBeAdded = _mapper.Map<DBReview>(review);

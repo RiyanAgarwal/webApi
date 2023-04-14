@@ -59,7 +59,7 @@ namespace Assignment_2.Services
 
         public void Update(int id,RequestActor actor)
         {
-            f(string.IsNullOrEmpty(actor.Name) ||
+            if(string.IsNullOrEmpty(actor.Name) ||
                 string.IsNullOrEmpty(actor.Gender) ||
                 string.IsNullOrEmpty(actor.Bio) ||
                 DateTime.Now < actor.DOB)

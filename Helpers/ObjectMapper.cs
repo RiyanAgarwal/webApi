@@ -13,19 +13,19 @@ namespace Assignment_2.Helpers
         public ObjectMapper()
         {
           
-            CreateMap<RequestActor,DBActor>();
+            CreateMap<RequestActor,DBActor>().ReverseMap();
             CreateMap< DBActor,ResponseActor>();
 
             CreateMap<DBProducer, ResponseProducer>();
-            CreateMap<RequestProducer, DBProducer>();
+            CreateMap<RequestProducer, DBProducer>().ReverseMap();
 
             CreateMap<DBMovie, ResponseMovie>();
-            CreateMap<RequestMovie, DBMovie>();
+            CreateMap<RequestMovie, DBMovie>().ReverseMap();
 
-            CreateMap<RequestGenre, DBGenre>();
+            CreateMap<RequestGenre, DBGenre>().ReverseMap();
             CreateMap<DBGenre,ResponseGenre>();
 
-            CreateMap<RequestReview, DBReview>();
+            CreateMap<RequestReview, DBReview>().ReverseMap();
             CreateMap<DBReview,ResponseReview>();
 
         }
