@@ -16,22 +16,12 @@ namespace Assignment_2.Repositories
 
         public List<DBProducer> GetAll()
         {
-            if (_producers == null)
-            {
-                throw new ArgumentNullException("Producers list is empty");
-            }
+
             return _producers.ToList();
         }
         public DBProducer Get(int id)
         {
-            var producerWithId = from producer in _producers
-                                 where producer.Id == id
-                                 select producer;
-            if (producerWithId.Count() != 1)
-            {
-                throw new ArgumentOutOfRangeException("Invalid producer id");
-            }
-            return producerWithId.First();
+            return _producers.ToList().Where(x => x.Id == id).First();
         }
 
         public void Add(DBProducer producer)
@@ -40,14 +30,7 @@ namespace Assignment_2.Repositories
         }
         public void Delete(int id)
         {
-            var producerWithId = from producer in _producers
-                                 where producer.Id == id
-                                 select producer;
-            if (producerWithId.Count() != 1)
-            {
-                throw new ArgumentOutOfRangeException("Invalid producer id");
-            }
-            _producers.Remove(producerWithId.First());
+            _producers.Remove(_producers.ToList().Where(x => x.Id == id).First());
         }
     }
 

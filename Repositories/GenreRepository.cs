@@ -16,22 +16,12 @@ namespace Assignment_2.Repositories
 
         public List<DBGenre> GetAll()
         {
-            if (_genres == null)
-            {
-                throw new ArgumentNullException("Genres list is empty");
-            }
+
             return _genres.ToList();
         }
         public DBGenre Get(int id)
         {
-            var genreWithId = from genre in _genres
-                              where genre.Id == id
-                              select genre;
-            if (genreWithId.Count() != 1)
-            {
-                throw new ArgumentOutOfRangeException("Invalid genre id");
-            }
-            return genreWithId.First();
+            return _genres.ToList().Where(x => x.Id == id).First();
         }
 
         public void Add(DBGenre genre)
@@ -40,14 +30,7 @@ namespace Assignment_2.Repositories
         }
         public void Delete(int id)
         {
-            var genreWithId = from genre in _genres
-                              where genre.Id == id
-                              select genre;
-            if (genreWithId.Count() != 1)
-            {
-                throw new ArgumentOutOfRangeException("Invalid genre id");
-            }
-            _genres.Remove(genreWithId.First());
+            _genres.Remove(_genres.ToList().Where(x => x.Id == id).First());
         }
     }
 

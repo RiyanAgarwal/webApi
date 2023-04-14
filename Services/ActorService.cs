@@ -22,9 +22,9 @@ namespace Assignment_2.Services
         {
             if (string.IsNullOrEmpty(actor.Name)|| 
                 string.IsNullOrEmpty(actor.Gender)|| 
-                string.IsNullOrEmpty(actor.Bio) )
-                //DateTime.Now<actor.DOB)
-                throw new ArgumentException("Invalid data");
+                string.IsNullOrEmpty(actor.Bio) ||
+                DateTime.Now < actor.DOB)
+                    throw new ArgumentException("Invalid data");
             var maxId= _actorRepository.GetAll().Select(x=>x.Id).DefaultIfEmpty(0).Max();
             var actorToBeAdded = _mapper.Map<DBActor>(actor);
             actorToBeAdded.Id = maxId+1;
@@ -59,11 +59,11 @@ namespace Assignment_2.Services
 
         public void Update(int id,RequestActor actor)
         {
-            if (string.IsNullOrEmpty(actor.Name) ||
+            f(string.IsNullOrEmpty(actor.Name) ||
                 string.IsNullOrEmpty(actor.Gender) ||
-                string.IsNullOrEmpty(actor.Bio) )
-                //DateTime.Now < actor.DOB)
-                throw new ArgumentException("Invalid data");
+                string.IsNullOrEmpty(actor.Bio) ||
+                DateTime.Now < actor.DOB)
+                    throw new ArgumentException("Invalid data");
 
             if (_actorRepository.GetAll().Where(x => x.Id == id).Count() != 1)
                 throw new ArgumentException("Invalid actor id");

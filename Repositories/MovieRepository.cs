@@ -6,7 +6,7 @@ using System;
 namespace Assignment_2.Repositories
 
 {
-    public class MovieRepository
+    public class MovieRepository : IMovieRepository
     {
         private readonly List<DBMovie> _movies;
         public MovieRepository()
@@ -16,22 +16,12 @@ namespace Assignment_2.Repositories
 
         public List<DBMovie> GetAll()
         {
-            if (_movies == null)
-            {
-                throw new ArgumentNullException("Movies list is empty");
-            }
+ 
             return _movies.ToList();
         }
         public DBMovie Get(int id)
         {
-            var movieWithId = from movie in _movies
-                                 where movie.Id == id
-                                 select movie;
-            if (movieWithId.Count() != 1)
-            {
-                throw new ArgumentOutOfRangeException("Invalid movie id");
-            }
-            return movieWithId.First();
+            return _movies.ToList().Where(x=>x.Id == id).First();
         }
 
         public void Add(DBMovie movie)
@@ -40,14 +30,7 @@ namespace Assignment_2.Repositories
         }
         public void Delete(int id)
         {
-            var movieWithId = from movie in _movies
-                                 where movie.Id == id
-                                 select movie;
-            if (movieWithId.Count() != 1)
-            {
-                throw new ArgumentOutOfRangeException("Invalid movie id");
-            }
-            _movies.Remove(movieWithId.First());
+            _movies.Remove(_movies.ToList().Where(x => x.Id == id).First());
         }
     }
 

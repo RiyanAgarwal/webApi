@@ -16,22 +16,12 @@ namespace Assignment_2.Repositories
 
         public List<DBReview> GetAll()
         {
-            if (_reviews == null)
-            {
-                throw new ArgumentNullException("Reviews list is empty");
-            }
+
             return _reviews.ToList();
         }
         public DBReview Get(int id)
         {
-            var reviewWithId = from review in _reviews
-                               where review.Id == id
-                               select review;
-            if (reviewWithId.Count() != 1)
-            {
-                throw new ArgumentOutOfRangeException("Invalid review id");
-            }
-            return reviewWithId.First();
+            return _reviews.ToList().Where(x => x.Id == id).First();
         }
 
         public void Add(DBReview review)
@@ -40,14 +30,7 @@ namespace Assignment_2.Repositories
         }
         public void Delete(int id)
         {
-            var reviewWithId = from review in _reviews
-                               where review.Id == id
-                               select review;
-            if (reviewWithId.Count() != 1)
-            {
-                throw new ArgumentOutOfRangeException("Invalid review id");
-            }
-            _reviews.Remove(reviewWithId.First());
+            _reviews.Remove(_reviews.ToList().Where(x => x.Id == id).First());
         }
     }
 
