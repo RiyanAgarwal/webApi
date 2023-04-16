@@ -5,9 +5,9 @@ namespace Assignment_2.Repositories
 {
     public interface IGenreRepository
     {
-        void Add(DBGenre genre);
+        void Add(GenreDB genre);
         void Delete(int id);
-        DBGenre Get(int id);
-        List<DBGenre> GetAll();
+        GenreDB Get(int id);
+        List<GenreDB> GetAll();
     }
 }

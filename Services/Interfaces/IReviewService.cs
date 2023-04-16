@@ -6,10 +6,10 @@ namespace Assignment_2.Services
 {
     public interface IReviewService
     {
-        int Create(RequestReview review);
+        int Create(ReviewRequest review);
         void Delete(int id);
-        ResponseReview Get(int id);
-        List<ResponseReview> GetAll();
-        void Update(int id, RequestReview review);
+        ReviewResponse Get(int id);
+        List<ReviewResponse> GetAll();
+        void Update(int id, ReviewRequest review);
     }
 }

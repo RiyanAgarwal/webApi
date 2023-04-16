@@ -1,10 +1,11 @@
 ﻿using System;
 
-namespace Assignment_2.Models.Request
+namespace Assignment_2.Models.DB
 {
-    public class RequestProducer
+    public class ActorDB
     {
         public string Name { get; set; }
+        public int Id { get; set; }
 
         public string Bio { get; set; }
 

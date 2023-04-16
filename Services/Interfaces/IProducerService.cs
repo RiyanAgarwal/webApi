@@ -6,10 +6,10 @@ namespace Assignment_2.Services
 {
     public interface IProducerService
     {
-        int Create(RequestProducer producer);
+        int Create(ProducerRequest producer);
         void Delete(int id);
-        ResponseProducer Get(int id);
-        List<ResponseProducer> GetAll();
-        void Update(int id, RequestProducer producer);
+        ProducerResponse Get(int id);
+        List<ProducerResponse> GetAll();
+        void Update(int id, ProducerRequest producer);
     }
 }

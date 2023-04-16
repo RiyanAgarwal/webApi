@@ -1,24 +1,19 @@
 ﻿using Assignment_2.Models.Request;
 using Assignment_2.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
 namespace Assignment_2.Controllers
 {
-
     [Route("api/reviews")]
     [ApiController]
     public class ReviewController : ControllerBase
     {
-        private readonly IReviewService _reviewService;
-        public ReviewController(IReviewService reviewService)
-        {
-            _reviewService = reviewService;
-        }
+        readonly IReviewService _reviewService;
+        public ReviewController(IReviewService reviewService) => _reviewService = reviewService;
 
         [HttpPost]
-        public IActionResult AddReview([FromBody] RequestReview review)
+        public IActionResult AddReview([FromBody] ReviewRequest review)
         {
             try
             {
@@ -41,11 +36,6 @@ namespace Assignment_2.Controllers
             try
             {
                 return Ok(_reviewService.GetAll());
-
-            }
-            catch (ArgumentNullException e)
-            {
-                return NotFound(e.Message);
             }
             catch (Exception e)
             {
@@ -62,7 +52,7 @@ namespace Assignment_2.Controllers
             }
             catch (ArgumentException e)
             {
-                return BadRequest(e.Message);
+                return NotFound(e.Message);
             }
             catch (Exception ex)
             {
@@ -80,7 +70,7 @@ namespace Assignment_2.Controllers
             }
             catch (ArgumentException e)
             {
-                return BadRequest(e.Message);
+                return NotFound(e.Message);
             }
             catch (Exception ex)
             {
@@ -89,7 +79,7 @@ namespace Assignment_2.Controllers
         }
 
         [HttpPut("{Id:int}")]
-        public IActionResult UpdateReview(int Id, RequestReview review)
+        public IActionResult UpdateReview(int Id, ReviewRequest review)
         {
             try
             {
@@ -105,6 +95,5 @@ namespace Assignment_2.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
-
     }
 }

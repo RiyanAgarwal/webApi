@@ -2,7 +2,7 @@
 
 namespace Assignment_2.Models.DB
 {
-    public class DBProducer
+    public class ProducerDB
     {
         public string Name { get; set; }
         public int Id { get; set; }

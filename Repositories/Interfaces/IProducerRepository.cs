@@ -5,9 +5,9 @@ namespace Assignment_2.Repositories
 {
     public interface IProducerRepository
     {
-        void Add(DBProducer producer);
+        void Add(ProducerDB producer);
         void Delete(int id);
-        DBProducer Get(int id);
-        List<DBProducer> GetAll();
+        ProducerDB Get(int id);
+        List<ProducerDB> GetAll();
     }
 }

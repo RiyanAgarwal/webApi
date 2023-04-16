@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Assignment_2.Models.Response
+namespace Assignment_2.Models.Request
 {
-    public class ResponseProducer
+    public class ActorRequest
     {
         public string Name { get; set; }
 

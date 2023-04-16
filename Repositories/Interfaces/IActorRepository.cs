@@ -5,9 +5,9 @@ namespace Assignment_2.Repositories
 {
     public interface IActorRepository
     {
-        void Add(DBActor actor);
+        void Add(ActorDB actor);
         void Delete(int id);
-        DBActor Get(int id);
-        List<DBActor> GetAll();
+        ActorDB Get(int id);
+        List<ActorDB> GetAll();
     }
 }

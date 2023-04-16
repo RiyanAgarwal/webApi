@@ -6,10 +6,10 @@ namespace Assignment_2.Services
 {
     public interface IGenreService
     {
-        int Create(RequestGenre genre);
+        int Create(GenreRequest genre);
         void Delete(int id);
-        ResponseGenre Get(int id);
-        List<ResponseGenre> GetAll();
-        void Update(int id, RequestGenre genre);
+        GenreResponse Get(int id);
+        List<GenreResponse> GetAll();
+        void Update(int id, GenreRequest genre);
     }
 }

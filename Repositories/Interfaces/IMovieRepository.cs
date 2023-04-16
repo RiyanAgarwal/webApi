@@ -5,9 +5,9 @@ namespace Assignment_2.Repositories
 {
     public interface IMovieRepository
     {
-        void Add(DBMovie movie);
+        void Add(MovieDB movie);
         void Delete(int id);
-        DBMovie Get(int id);
-        List<DBMovie> GetAll();
+        MovieDB Get(int id);
+        List<MovieDB> GetAll();
     }
 }

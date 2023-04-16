@@ -6,10 +6,11 @@ namespace Assignment_2.Services
 {
     public interface IMovieService
     {
-        int Create(RequestMovie movie);
+        int Create(MovieRequest movie);
         void Delete(int id);
-        ResponseMovie Get(int id);
-        List<ResponseMovie> GetAll();
-        void Update(int id, RequestMovie movie);
+
+        MovieResponse Get(int id);
+        List<MovieResponse> GetAll();
+        void Update(int id, MovieRequest movie);
     }
 }

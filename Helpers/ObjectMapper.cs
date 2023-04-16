@@ -1,33 +1,33 @@
 ﻿using Assignment_2.Models.DB;
-using Assignment_2.Models.Response;
 using Assignment_2.Models.Request;
+using Assignment_2.Models.Response;
 using AutoMapper;
-using System;
-using Microsoft.VisualBasic;
-using System.Globalization;
 
 namespace Assignment_2.Helpers
 {
-    public class ObjectMapper:Profile
+    public class ObjectMapper : Profile
     {
         public ObjectMapper()
         {
-          
-            CreateMap<RequestActor,DBActor>().ReverseMap();
-            CreateMap< DBActor,ResponseActor>();
+            CreateMap<ActorRequest, ActorDB>();
+            CreateMap<ActorDB, ActorResponse>();
+            CreateMap<ActorResponse, ActorRequest>();
 
-            CreateMap<DBProducer, ResponseProducer>();
-            CreateMap<RequestProducer, DBProducer>().ReverseMap();
 
-            CreateMap<DBMovie, ResponseMovie>();
-            CreateMap<RequestMovie, DBMovie>().ReverseMap();
+            CreateMap<ProducerDB, ProducerResponse>();
+            CreateMap<ProducerRequest, ProducerDB>();
+            CreateMap<ProducerResponse, ProducerRequest>();
 
-            CreateMap<RequestGenre, DBGenre>().ReverseMap();
-            CreateMap<DBGenre,ResponseGenre>();
+            CreateMap<MovieDB, MovieResponse>();
+            CreateMap<MovieRequest, MovieDB>();
 
-            CreateMap<RequestReview, DBReview>().ReverseMap();
-            CreateMap<DBReview,ResponseReview>();
+            CreateMap<GenreRequest, GenreDB>();
+            CreateMap<GenreDB, GenreResponse>();
+            CreateMap<GenreResponse, GenreRequest>();
 
+
+            CreateMap<ReviewRequest, ReviewDB>();
+            CreateMap<ReviewDB, ReviewResponse>();
         }
     }
 }

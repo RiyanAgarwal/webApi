@@ -1,24 +1,22 @@
 ﻿using Assignment_2.Models.Request;
 using Assignment_2.Services;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 
 namespace Assignment_2.Controllers
 {
-
     [Route("api/producers")]
     [ApiController]
     public class ProducerController : ControllerBase
     {
-        private readonly IProducerService _producerService;
+        readonly IProducerService _producerService;
         public ProducerController(IProducerService producerService)
         {
             _producerService = producerService;
         }
 
         [HttpPost]
-        public IActionResult AddProducer([FromBody] RequestProducer producer)
+        public IActionResult AddProducer([FromBody] ProducerRequest producer)
         {
             try
             {
@@ -41,11 +39,6 @@ namespace Assignment_2.Controllers
             try
             {
                 return Ok(_producerService.GetAll());
-
-            }
-            catch (ArgumentNullException e)
-            {
-                return NotFound(e.Message);
             }
             catch (Exception e)
             {
@@ -62,7 +55,7 @@ namespace Assignment_2.Controllers
             }
             catch (ArgumentException e)
             {
-                return BadRequest(e.Message);
+                return NotFound(e.Message);
             }
             catch (Exception ex)
             {
@@ -80,7 +73,7 @@ namespace Assignment_2.Controllers
             }
             catch (ArgumentException e)
             {
-                return BadRequest(e.Message);
+                return NotFound(e.Message);
             }
             catch (Exception ex)
             {
@@ -89,7 +82,7 @@ namespace Assignment_2.Controllers
         }
 
         [HttpPut("{Id:int}")]
-        public IActionResult UpdateProducer(int Id, RequestProducer producer)
+        public IActionResult UpdateProducer(int Id, ProducerRequest producer)
         {
             try
             {
@@ -105,6 +98,5 @@ namespace Assignment_2.Controllers
                 return StatusCode(500, ex.Message);
             }
         }
-
     }
 }

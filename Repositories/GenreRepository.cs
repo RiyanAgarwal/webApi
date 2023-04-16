@@ -1,37 +1,20 @@
 ﻿using Assignment_2.Models.DB;
 using System.Collections.Generic;
 using System.Linq;
-using System;
 
 namespace Assignment_2.Repositories
-
 {
     public class GenreRepository : IGenreRepository
     {
-        private readonly List<DBGenre> _genres;
-        public GenreRepository()
-        {
-            _genres = new List<DBGenre>();
-        }
+        readonly List<GenreDB> _genres;
+        public GenreRepository() => _genres = new();
 
-        public List<DBGenre> GetAll()
-        {
+        public List<GenreDB> GetAll() => _genres.ToList();
 
-            return _genres.ToList();
-        }
-        public DBGenre Get(int id)
-        {
-            return _genres.ToList().Where(x => x.Id == id).First();
-        }
+        public GenreDB Get(int id) => _genres.ToList().Where(x => x.Id == id).First();
 
-        public void Add(DBGenre genre)
-        {
-            _genres.Add(genre);
-        }
-        public void Delete(int id)
-        {
-            _genres.Remove(_genres.ToList().Where(x => x.Id == id).First());
-        }
+        public void Add(GenreDB genre) => _genres.Add(genre);
+
+        public void Delete(int id) => _genres.Remove(_genres.ToList().Where(x => x.Id == id).First());
     }
-
 }

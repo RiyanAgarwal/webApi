@@ -1,6 +1,6 @@
 ﻿namespace Assignment_2.Models.Response
 {
-    public class ResponseGenre
+    public class GenreResponse
     {
         public string Name { get; set; }
     }
