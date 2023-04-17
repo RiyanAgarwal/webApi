@@ -11,7 +11,6 @@ namespace Assignment_2.Controllers
     {
         readonly IActorService _actorService;
         public ActorController(IActorService actorService) => _actorService = actorService;
-
         [HttpPost]
         public IActionResult AddActor([FromBody] ActorRequest actor)
         {

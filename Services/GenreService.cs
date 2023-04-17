@@ -6,6 +6,7 @@ using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 
 namespace Assignment_2.Services
 {
@@ -22,47 +23,36 @@ namespace Assignment_2.Services
         {
             if (string.IsNullOrEmpty(genre.Name))
                 throw new ArgumentException("Invalid name");
-
             var maxId = _genreRepository.GetAll().Select(x => x.Id).DefaultIfEmpty(0).Max();
             var genreToBeAdded = _mapper.Map<GenreDB>(genre);
             genreToBeAdded.Id = maxId + 1;
             _genreRepository.Add(genreToBeAdded);
             return genreToBeAdded.Id;
         }
-
         public void Delete(int id)
         {
-            if (_genreRepository.GetAll().Where(x => x.Id == id).Count() != 1)
+            if (_genreRepository.Get(id) == null)
                 throw new ArgumentException("Invalid genre id");
-
             _genreRepository.Delete(id);
         }
-
         public List<GenreResponse> GetAll()
         {
             return _mapper.Map<List<GenreResponse>>(_genreRepository.GetAll());
         }
-
         public GenreResponse Get(int id)
         {
-            if (_genreRepository.GetAll().Where(x => x.Id == id).Count() != 1)
+            if (_genreRepository.Get(id) == null)
                 throw new ArgumentException("Invalid genre id");
-
             return _mapper.Map<GenreResponse>(_genreRepository.Get(id));
         }
-
         public void Update(int id, GenreRequest genre)
         {
-            if (string.IsNullOrEmpty(genre.Name))
-                throw new ArgumentException("Invalid data");
-
-            if (_genreRepository.GetAll().Where(x => x.Id == id).Count() != 1)
+            if(string.IsNullOrEmpty(genre.Name))
+                throw new ArgumentException("Invalid name");
+            if (_genreRepository.Get(id) == null)
                 throw new ArgumentException("Invalid genre id");
-
-            _genreRepository.Delete(id);
-            var genreToBeAdded = _mapper.Map<GenreDB>(genre);
-            genreToBeAdded.Id = id;
-            _genreRepository.Add(genreToBeAdded);
+            var genreDB = _genreRepository.Get(id);
+            genreDB.Name = genre.Name;
         }
     }
 }

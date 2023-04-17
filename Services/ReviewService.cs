@@ -23,8 +23,7 @@ namespace Assignment_2.Services
         public int Create(ReviewRequest review)
         {
             if (string.IsNullOrEmpty(review.Message))
-                throw new ArgumentException("Invalid data");
-            
+                throw new ArgumentException("Invalid message");
             _movieService.Get(review.MovieId);
             var maxId = _reviewRepository.GetAll().Select(x => x.Id).DefaultIfEmpty(0).Max();
             var reviewToBeAdded = _mapper.Map<ReviewDB>(review);
@@ -35,39 +34,28 @@ namespace Assignment_2.Services
 
         public void Delete(int id)
         {
-            if (_reviewRepository.GetAll().Where(x => x.Id == id).Count() != 1)
+            if (_reviewRepository.Get(id) == null)
                 throw new ArgumentException("Invalid review id");
-
             _reviewRepository.Delete(id);
         }
-
         public List<ReviewResponse> GetAll()
         {
             return _mapper.Map<List<ReviewResponse>>(_reviewRepository.GetAll());
         }
-
         public ReviewResponse Get(int id)
         {
-            if (_reviewRepository.GetAll().Where(x => x.Id == id).Count() != 1)
+            if (_reviewRepository.Get(id) == null)
                 throw new ArgumentException("Invalid review id");
-
             return _mapper.Map<ReviewResponse>(_reviewRepository.Get(id));
         }
-
         public void Update(int id, ReviewRequest review)
         {
             if (string.IsNullOrEmpty(review.Message))
-                throw new ArgumentException("Invalid data");
-
+                throw new ArgumentException("Invalid message");
             _movieService.Get(review.MovieId);
-
-            if (_reviewRepository.GetAll().Where(x => x.Id == id).Count() != 1)
-                throw new ArgumentException("Invalid review id");
-
-            _reviewRepository.Delete(id);
-            var reviewToBeAdded = _mapper.Map<ReviewDB>(review);
-            reviewToBeAdded.Id = id;
-            _reviewRepository.Add(reviewToBeAdded);
+            var reviewDB = _reviewRepository.Get(id);
+            reviewDB.Message = review.Message;
+            reviewDB.MovieId= review.MovieId;
         }
     }
 }

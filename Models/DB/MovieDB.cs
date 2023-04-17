@@ -6,9 +6,7 @@ namespace Assignment_2.Models.DB
     {
         public int Id { get; set; }
         public string Name { get; set; }
-
         public string Plot { get; set; }
-
         public ProducerDB Producer { get; set; }
         public List<ActorDB> Actors { get; set; }
         public int YearOfRelease { get; set; }

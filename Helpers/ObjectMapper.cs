@@ -12,20 +12,14 @@ namespace Assignment_2.Helpers
             CreateMap<ActorRequest, ActorDB>();
             CreateMap<ActorDB, ActorResponse>();
             CreateMap<ActorResponse, ActorRequest>();
-
-
             CreateMap<ProducerDB, ProducerResponse>();
             CreateMap<ProducerRequest, ProducerDB>();
             CreateMap<ProducerResponse, ProducerRequest>();
-
             CreateMap<MovieDB, MovieResponse>();
             CreateMap<MovieRequest, MovieDB>();
-
             CreateMap<GenreRequest, GenreDB>();
             CreateMap<GenreDB, GenreResponse>();
             CreateMap<GenreResponse, GenreRequest>();
-
-
             CreateMap<ReviewRequest, ReviewDB>();
             CreateMap<ReviewDB, ReviewResponse>();
         }

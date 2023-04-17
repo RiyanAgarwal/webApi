@@ -20,55 +20,52 @@ namespace Assignment_2.Services
         }
         public int Create(ActorRequest actor)
         {
-            if (string.IsNullOrEmpty(actor.Name) ||
-                string.IsNullOrEmpty(actor.Gender) ||
-                string.IsNullOrEmpty(actor.Bio) ||
-                DateTime.Now < actor.DOB)
-                throw new ArgumentException("Invalid data");
-
+            if (string.IsNullOrEmpty(actor.Name))
+                throw new ArgumentException("Invalid name");
+            if (string.IsNullOrEmpty(actor.Gender))
+                throw new ArgumentException("Invalid gender");
+            if (string.IsNullOrEmpty(actor.Bio))
+                throw new ArgumentException("Invalid bio");
+            if (DateTime.Now < actor.DOB)
+                throw new ArgumentException("Invalid date");
             var maxId = _actorRepository.GetAll().Select(x => x.Id).DefaultIfEmpty(0).Max();
             var actorToBeAdded = _mapper.Map<ActorDB>(actor);
             actorToBeAdded.Id = maxId + 1;
             _actorRepository.Add(actorToBeAdded);
             return actorToBeAdded.Id;
         }
-
         public void Delete(int id)
         {
-            if (_actorRepository.GetAll().Where(x => x.Id == id).Count() != 1)
+            if (_actorRepository.Get(id) == null)
                 throw new ArgumentException("Invalid actor id");
-
             _actorRepository.Delete(id);
         }
-
         public List<ActorResponse> GetAll()
         {
             return _mapper.Map<List<ActorResponse>>(_actorRepository.GetAll());
         }
-
         public ActorResponse Get(int id)
         {
-            if (_actorRepository.GetAll().Where(x => x.Id == id).Count() != 1)
-                throw new ArgumentException("Invalid actor id");
-
+            if (_actorRepository.Get(id) == null)
+                throw new ArgumentException("Invalid Actor id");
             return _mapper.Map<ActorResponse>(_actorRepository.Get(id));
         }
-
         public void Update(int id, ActorRequest actor)
         {
-            if (string.IsNullOrEmpty(actor.Name) ||
-                string.IsNullOrEmpty(actor.Gender) ||
-                string.IsNullOrEmpty(actor.Bio) ||
-                DateTime.Now < actor.DOB)
-                throw new ArgumentException("Invalid data");
-
-            if (_actorRepository.GetAll().Where(x => x.Id == id).Count() != 1)
+            if (string.IsNullOrEmpty(actor.Name))
+                throw new ArgumentException("Invalid name");
+            if (string.IsNullOrEmpty(actor.Gender))
+                throw new ArgumentException("Invalid gender");
+            if (string.IsNullOrEmpty(actor.Bio))
+                throw new ArgumentException("Invalid bio");
+            if (DateTime.Now < actor.DOB)
+                throw new ArgumentException("Invalid date");
+            if (_actorRepository.Get(id) == null)
                 throw new ArgumentException("Invalid actor id");
-
-            _actorRepository.Delete(id);
-            var actorToBeAdded = _mapper.Map<ActorDB>(actor);
-            actorToBeAdded.Id = id;
-            _actorRepository.Add(actorToBeAdded);
+            var actorDB = _actorRepository.Get(id);
+            actorDB.Name = actor.Name;
+            actorDB.Bio = actor.Bio;
+            actorDB.Gender = actor.Gender;
         }
     }
 }

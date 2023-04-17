@@ -8,13 +8,9 @@ namespace Assignment_2.Repositories
     {
         readonly List<ActorDB> _actors;
         public ActorRepository() => _actors = new();
-
         public List<ActorDB> GetAll() => _actors.ToList();
-
-        public ActorDB Get(int id) => _actors.ToList().Where(x => x.Id == id).First();
-
+        public ActorDB Get(int id) => _actors.ToList().Where(x => x.Id == id).FirstOrDefault();
         public void Add(ActorDB actor) => _actors.Add(actor);
-
         public void Delete(int id) => _actors.Remove(_actors.ToList().Where(x => x.Id == id).First());
     }
 }
