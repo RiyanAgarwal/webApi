@@ -28,6 +28,7 @@ namespace Assignment_2.Services
             _actorService = actorService;
             _genreService = genreService;
         }
+
         public int Create(MovieRequest movie)
         {
             if (string.IsNullOrEmpty(movie.Name))
@@ -38,39 +39,26 @@ namespace Assignment_2.Services
                 throw new ArgumentException("Invalid plot");
             if (DateTime.Now.Year < movie.YearOfRelease)
                 throw new ArgumentException("Invalid date");
-            if (!_mapper.Map<List<ProducerRequest>>(_producerService.GetAll())
-                .Any(x => x.Name == movie.Producer.Name &&
-                    x.DOB == movie.Producer.DOB &&
-                    x.Bio == movie.Producer.Bio &&
-                    x.Gender == movie.Producer.Gender))
+            _producerService.Get(movie.ProducerId);
+            var genresList = movie.GenresId.Split(",").Select(x=>int.Parse(x)).ToList();
+            var actorsList = movie.ActorsId.Split(",").Select(x=>int.Parse(x)).ToList();            
+            foreach (var actorId in actorsList)
             {
-                throw new ArgumentException("Producer not found");
+                _actorService.Get(actorId);
             }
-            var requestAllGenres = _mapper.Map<List<GenreRequest>>(_genreService.GetAll());
-            foreach (var genre in movie.Genres)
+            foreach (var genreId in genresList)
             {
-                if (!requestAllGenres.Any(x => x.Name == genre.Name))
-                {
-                    throw new ArgumentException("Genre not found");
-                }
-            }
-            var requestActors = _mapper.Map<List<ActorRequest>>(_actorService.GetAll());
-            foreach (var actor in movie.Actors)
-            {
-                if (!requestActors.Any(x => x.Name == actor.Name &&
-                    x.DOB == actor.DOB &&
-                    x.Bio == actor.Bio &&
-                    x.Gender == actor.Gender))
-                {
-                    throw new ArgumentException("Actor not found");
-                }
+                _genreService.Get(genreId);
             }
             var maxId = _movieRepository.GetAll().Select(x => x.Id).DefaultIfEmpty(0).Max();
             var movieToBeAdded = _mapper.Map<MovieDB>(movie);
             movieToBeAdded.Id = maxId + 1;
+            movieToBeAdded.ActorsId = actorsList;
+            movieToBeAdded.GenresId = genresList;
             _movieRepository.Add(movieToBeAdded);
             return movieToBeAdded.Id;
         }
+
         public void Delete(int id)
         {
             if (_movieRepository.Get(id) == null)
@@ -80,15 +68,49 @@ namespace Assignment_2.Services
 
         public List<MovieResponse> GetAll()
         {
-            return _mapper.Map<List<MovieResponse>>(_movieRepository.GetAll());
+            var movieList=_movieRepository.GetAll();
+            var responseMovieList=_mapper.Map<List<MovieResponse>>(movieList);
+            for(var i=0;i<movieList.Count;i+=1)
+            {
+                var actorResponse = new List<ActorResponse>();
+                var genreResponse = new List<GenreResponse>();
+                foreach (var actorId in movieList[i].ActorsId)
+                {
+                    actorResponse.Add(_actorService.Get(actorId));
+                }
+                foreach (var genreId in movieList[i].GenresId)
+                {
+                    genreResponse.Add(_genreService.Get(genreId));
+                }
+                responseMovieList[i].Actors = actorResponse;
+                responseMovieList[i].Genres = genreResponse;
+                responseMovieList[i].Producer = _producerService.Get(movieList[i].ProducerId);
+            }
+                return responseMovieList;
         }
 
         public MovieResponse Get(int id)
         {
             if (_movieRepository.Get(id) == null)
                 throw new ArgumentException("Invalid movie id");
-            return _mapper.Map<MovieResponse>(_movieRepository.Get(id));
+            var movieDB = _movieRepository.Get(id);
+            var movieResponse=_mapper.Map<MovieResponse>(movieDB);
+            var actorResponse = new List<ActorResponse>();
+            var genreResponse = new List<GenreResponse>();
+            foreach(var actorId in movieDB.ActorsId)
+            {
+                actorResponse.Add(_actorService.Get(actorId));
+            }
+            foreach (var genreId in movieDB.GenresId)
+            {
+                genreResponse.Add(_genreService.Get(genreId));
+            }
+            movieResponse.Producer = _producerService.Get(movieDB.ProducerId);
+            movieResponse.Actors= actorResponse;
+            movieResponse.Genres= genreResponse;
+            return movieResponse;
         }
+
         public void Update(int id, MovieRequest movie)
         {
             if (_movieRepository.Get(id) == null)
@@ -101,49 +123,24 @@ namespace Assignment_2.Services
                 throw new ArgumentException("Invalid plot");
             if (DateTime.Now.Year < movie.YearOfRelease)
                 throw new ArgumentException("Invalid date");
-            if (!_mapper.Map<List<ProducerRequest>>(_producerService.GetAll())
-                .Any(x => x.Name == movie.Producer.Name &&
-                    x.DOB == movie.Producer.DOB &&
-                    x.Bio == movie.Producer.Bio &&
-                    x.Gender == movie.Producer.Gender))
+            var genresList = movie.GenresId.Split(",").Select(x => int.Parse(x)).ToList();
+            var actorsList = movie.ActorsId.Split(",").Select(x => int.Parse(x)).ToList();
+            foreach (var actorId in actorsList)
             {
-                throw new ArgumentException("Producer not found");
+                _actorService.Get(actorId);
             }
-            var requestAllGenres = _mapper.Map<List<GenreRequest>>(_genreService.GetAll());
-            foreach (var genre in movie.Genres)
+            foreach (var genreId in genresList)
             {
-                if (!requestAllGenres.Any(x => x.Name == genre.Name))
-                {
-                    throw new ArgumentException("Genre not found");
-                }
-            }
-            var requestActors = _mapper.Map<List<ActorRequest>>(_actorService.GetAll());
-            foreach (var actor in movie.Actors)
-            {
-                if (!requestActors.Any(x => x.Name == actor.Name &&
-                    x.DOB == actor.DOB &&
-                    x.Bio == actor.Bio &&
-                    x.Gender == actor.Gender))
-                {
-                    throw new ArgumentException("Actor not found");
-                }
+                _genreService.Get(genreId);
             }
             var movieDB = _movieRepository.Get(id);
             movieDB.Name = movie.Name;
             movieDB.Plot = movie.Plot;
             movieDB.CoverImage= movie.CoverImage;
             movieDB.YearOfRelease= movie.YearOfRelease;
-            movieDB.Producer = _mapper.Map<ProducerDB>(movie.Producer);
-            //movieDB.Producer.Id = producerId;
-            //movieDB.Producer.Name = movie.Producer.Name;
-            //movieDB.Producer.Bio = movie.Producer.Bio;
-            //movieDB.Producer.DOB = movie.Producer.DOB;
-            //movieDB.Producer.Gender = movie.Producer.Gender;
-            //movieDB.Actors.Clear();
-            //foreach(var actor in movie.Actors)
-            //{
-            //    movieDB.Actors.Add
-            //}
+            movieDB.ProducerId= movie.ProducerId;
+            movieDB.ActorsId = actorsList;
+            movieDB.GenresId = genresList;
         }
     }
 }
