@@ -55,5 +55,19 @@ DELETE FROM Foundation.Reviews
 WHERE Id = @Id";
             Delete(query, new { Id = id });
         }
+        public void Update(ReviewDB review)
+        {
+            const string query = @"
+UPDATE Foundation.Reviews
+SET Message = @Message
+	,MovieId = @MovieId
+WHERE Id = @Id";
+            Update(query, new
+            {
+                review.Message,
+                review.MovieId,
+                review.Id
+            });
+        }
     }
 }

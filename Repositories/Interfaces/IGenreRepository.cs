@@ -9,5 +9,6 @@ namespace Assignment_3.Repositories
         void Delete(int id);
         GenreDB Get(int id);
         List<GenreDB> GetAll();
+        void Update(GenreDB genre);
     }
 }

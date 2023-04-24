@@ -9,5 +9,6 @@ namespace Assignment_3.Repositories
         void Delete(int id);
         MovieDB Get(int id);
         List<MovieDB> GetAll();
+        void Update(MovieDB movie);
     }
 }

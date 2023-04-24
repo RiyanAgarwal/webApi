@@ -67,5 +67,24 @@ DELETE FROM Foundation.Actors
 WHERE Id = @Id";
             Delete(query, new { Id = id });
         }
+
+        public void Update(ActorDB actor)
+        {
+            const string query = @"
+UPDATE Foundation.Actors
+SET Name = @Name
+	,Bio = @Bio
+	,Gender = @Gender
+	,Dob = @DOb
+WHERE Id = @Id";
+            Update(query, new
+            {
+                actor.Name,
+                actor.Bio,
+                actor.Gender,
+                actor.DOB,
+                actor.Id
+            });
+        }
     }
 }

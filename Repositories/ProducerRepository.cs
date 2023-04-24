@@ -64,5 +64,24 @@ DELETE FROM Foundation.Producers
 WHERE Id = @Id";
             Delete(query, new { Id = id });
         }
+
+        public void Update(ProducerDB producer)
+        {
+            const string query = @"
+UPDATE Foundation.Producers
+SET Name = @Name
+	,Bio = @Bio
+	,Gender = @Gender
+	,Dob = @DOb
+WHERE Id = @Id";
+            Update(query, new
+            {
+                producer.Name,
+                producer.Bio,
+                producer.Gender,
+                producer.DOB,
+                producer.Id
+            });
+        }
     }
 }

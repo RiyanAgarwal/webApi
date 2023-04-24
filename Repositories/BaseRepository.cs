@@ -1,4 +1,6 @@
-﻿using Dapper;
+﻿using Assignment_3.Models.DB;
+using Dapper;
+using Microsoft.Extensions.Hosting;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -25,7 +27,7 @@ namespace Assignment_3.Repositories
             using var connection = new SqlConnection(_connectionString);
             return connection.QueryFirstOrDefault<T>(query,parameters);
         }
-        
+
         public void Create(string query,object parameters)
         {
             using var connection = new SqlConnection(_connectionString);
@@ -36,6 +38,11 @@ namespace Assignment_3.Repositories
         {
             using var connection = new SqlConnection(_connectionString);
             connection.Execute(query,parameters);
+        }
+        public void Update(string query,object parameters)
+        {
+            using var connection = new SqlConnection(_connectionString);
+            connection.Execute(query, parameters);
         }
     }
 }

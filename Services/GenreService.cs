@@ -23,11 +23,9 @@ namespace Assignment_3.Services
         {
             if (string.IsNullOrEmpty(genre.Name))
                 throw new ArgumentException("Invalid name");
-            var maxId = _genreRepository.GetAll().Select(x => x.Id).DefaultIfEmpty(0).Max();
             var genreToBeAdded = _mapper.Map<GenreDB>(genre);
-            genreToBeAdded.Id = maxId + 1;
             _genreRepository.Add(genreToBeAdded);
-            return genreToBeAdded.Id;
+            return _genreRepository.GetAll().Select(x => x.Id).Max();
         }
         public void Delete(int id)
         {
@@ -51,8 +49,9 @@ namespace Assignment_3.Services
                 throw new ArgumentException("Invalid name");
             if (_genreRepository.Get(id) == null)
                 throw new ArgumentException("Invalid genre id");
-            var genreDB = _genreRepository.Get(id);
-            genreDB.Name = genre.Name;
+            var genreDB = _mapper.Map<GenreDB>(genre);
+            genreDB.Id = id;
+            _genreRepository.Update(genreDB);
         }
     }
 }

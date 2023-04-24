@@ -9,5 +9,6 @@ namespace Assignment_3.Repositories
         void Delete(int id);
         ActorDB Get(int id);
         List<ActorDB> GetAll();
+        void Update(ActorDB actor);
     }
 }

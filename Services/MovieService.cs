@@ -50,13 +50,11 @@ namespace Assignment_3.Services
             {
                 _genreService.Get(genreId);
             }
-            var maxId = _movieRepository.GetAll().Select(x => x.Id).DefaultIfEmpty(0).Max();
             var movieToBeAdded = _mapper.Map<MovieDB>(movie);
-            movieToBeAdded.Id = maxId + 1;
             movieToBeAdded.ActorsId = actorsList;
             movieToBeAdded.GenresId = genresList;
             _movieRepository.Add(movieToBeAdded);
-            return movieToBeAdded.Id;
+            return _movieRepository.GetAll().Select(x => x.Id).Max();
         }
 
         public void Delete(int id)
@@ -133,14 +131,11 @@ namespace Assignment_3.Services
             {
                 _genreService.Get(genreId);
             }
-            var movieDB = _movieRepository.Get(id);
-            movieDB.Name = movie.Name;
-            movieDB.Plot = movie.Plot;
-            movieDB.CoverImage= movie.CoverImage;
-            movieDB.YearOfRelease= movie.YearOfRelease;
-            movieDB.ProducerId= movie.ProducerId;
+            var movieDB=_mapper.Map<MovieDB>(movie);
+            movieDB.Id = id;
             movieDB.ActorsId = actorsList;
             movieDB.GenresId = genresList;
+            _movieRepository.Update(movieDB);
         }
     }
 }

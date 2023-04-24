@@ -12,5 +12,10 @@ namespace Assignment_3.Models.DB
         public int YearOfRelease { get; set; }
         public string CoverImage { get; set; }
         public List<int> GenresId { get; set; }
+        public MovieDB() 
+        { 
+            ActorsId = new List<int>();
+            GenresId = new List<int>();
+        }
     }
 }

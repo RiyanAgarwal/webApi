@@ -19,12 +19,13 @@ SELECT [Id]
 FROM Foundation.Genres (NOLOCK)";
             return GetAll(query);
         }
+
         public GenreDB Get(int id)
         {
             const string query = @"
 SELECT [Id]
 	,[Name]
-FROM Foundation.Genre (NOLOCK)
+FROM Foundation.Genres (NOLOCK)
 WHERE Id = @Id";
             return Get(query, new { Id = id });
         }
@@ -49,6 +50,18 @@ VALUES (
 DELETE FROM Foundation.Genres
 WHERE Id = @Id";
             Delete(query, new { Id = id });
+        }
+        public void Update(GenreDB genre)
+        {
+            const string query = @"
+UPDATE Foundation.Genres
+SET Name = @Name
+WHERE Id = @Id";
+            Update(query, new
+            {
+                genre.Name,
+                genre.Id
+            });
         }
     }
 }

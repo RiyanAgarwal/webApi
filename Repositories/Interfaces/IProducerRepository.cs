@@ -9,5 +9,6 @@ namespace Assignment_3.Repositories
         void Delete(int id);
         ProducerDB Get(int id);
         List<ProducerDB> GetAll();
+        void Update(ProducerDB producer);
     }
 }

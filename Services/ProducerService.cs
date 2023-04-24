@@ -28,11 +28,9 @@ namespace Assignment_3.Services
                 throw new ArgumentException("Invalid bio");
             if (DateTime.Now < producer.DOB)
                 throw new ArgumentException("Invalid date");
-            var maxId = _producerRepository.GetAll().Select(x => x.Id).DefaultIfEmpty(0).Max();
             var producerToBeAdded = _mapper.Map<ProducerDB>(producer);
-            producerToBeAdded.Id = maxId + 1;
             _producerRepository.Add(producerToBeAdded);
-            return producerToBeAdded.Id;
+            return _producerRepository.GetAll().Select(x => x.Id).Max();
         }
         public void Delete(int id)
         {
@@ -62,10 +60,9 @@ namespace Assignment_3.Services
                 throw new ArgumentException("Invalid bio");
             if (DateTime.Now < producer.DOB)
                 throw new ArgumentException("Invalid date");
-            var producerDB = _producerRepository.Get(id);
-            producerDB.Name = producer.Name;
-            producerDB.Bio = producer.Bio;
-            producerDB.Gender = producer.Gender;
+            var producerDB=_mapper.Map<ProducerDB>(producer);
+            producerDB.Id = id;
+            _producerRepository.Update(producerDB);
         }
     }
 }

@@ -9,5 +9,6 @@ namespace Assignment_3.Repositories
         void Delete(int id);
         ReviewDB Get(int id);
         List<ReviewDB> GetAll();
+        void Update(ReviewDB review);
     }
 }
