@@ -1,7 +1,10 @@
 ﻿using Assignment_3.Models.Request;
 using Assignment_3.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using Firebase.Storage;
+using System.Threading.Tasks;
 
 namespace Assignment_3.Controllers
 {
@@ -12,7 +15,19 @@ namespace Assignment_3.Controllers
         readonly IMovieService _movieService;
         public MovieController(IMovieService movieService) => _movieService = movieService;
 
-        [HttpPost]
+    [HttpPost("upload")]
+    public async Task<IActionResult> UploadFile(IFormFile file)
+    {
+        if (file == null || file.Length == 0)
+            return Content("file not selected");
+        var task = await new FirebaseStorage("YOUR_ACCOUNT_KEY")
+                .Child("DIRECTORY_IF_ANY")
+                .Child(Guid.NewGuid().ToString() + ".jpg")
+                .PutAsync(file.OpenReadStream());
+        return Ok(task);
+    }
+
+    [HttpPost]
         public IActionResult AddMovie([FromBody] MovieRequest movie)
         {
             try
