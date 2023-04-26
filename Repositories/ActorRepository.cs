@@ -76,6 +76,7 @@ SET Name = @Name
 	,Bio = @Bio
 	,Gender = @Gender
 	,Dob = @DOb
+    ,UpdatedAt=CAST(GETDATE() AS date)
 WHERE Id = @Id";
             Update(query, new
             {

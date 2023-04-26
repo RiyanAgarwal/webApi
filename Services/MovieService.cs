@@ -137,5 +137,12 @@ namespace Assignment_3.Services
             movieDB.GenresId = genresList;
             _movieRepository.Update(movieDB);
         }
+
+        public void UpdateCoverImage(int movieId,string imageURl)
+        {
+            if (_movieRepository.Get(movieId)==null)
+                throw new ArgumentException("Invalid Movie Id");
+            _movieRepository.UpdateCoverImage(movieId, imageURl);
+        }
     }
 }

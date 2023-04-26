@@ -56,6 +56,7 @@ WHERE Id = @Id";
             const string query = @"
 UPDATE Foundation.Genres
 SET Name = @Name
+    ,UpdatedAt=CAST(GETDATE() AS date)
 WHERE Id = @Id";
             Update(query, new
             {

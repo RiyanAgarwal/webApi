@@ -61,6 +61,7 @@ WHERE Id = @Id";
 UPDATE Foundation.Reviews
 SET Message = @Message
 	,MovieId = @MovieId
+    ,UpdatedAt=CAST(GETDATE() AS date)
 WHERE Id = @Id";
             Update(query, new
             {

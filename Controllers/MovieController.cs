@@ -15,19 +15,32 @@ namespace Assignment_3.Controllers
         readonly IMovieService _movieService;
         public MovieController(IMovieService movieService) => _movieService = movieService;
 
-    [HttpPost("upload")]
-    public async Task<IActionResult> UploadFile(IFormFile file)
-    {
-        if (file == null || file.Length == 0)
-            return Content("file not selected");
-        var task = await new FirebaseStorage("YOUR_ACCOUNT_KEY")
-                .Child("DIRECTORY_IF_ANY")
+        [HttpPost("upload")]
+        public async Task<IActionResult> UploadFile(IFormFile file,[FromForm]int id)
+        {
+        
+            if (file == null || file.Length == 0)
+                return Content("file not selected");
+            try
+            {
+                var task = await new FirebaseStorage("smart-acrobat-384720.appspot.com")
+                .Child("webapi")
                 .Child(Guid.NewGuid().ToString() + ".jpg")
                 .PutAsync(file.OpenReadStream());
-        return Ok(task);
-    }
+                _movieService.UpdateCoverImage(id, task);
+                return Ok(task);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500,ex.Message);
+            }
+        }
 
-    [HttpPost]
+        [HttpPost]
         public IActionResult AddMovie([FromBody] MovieRequest movie)
         {
             try

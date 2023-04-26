@@ -8,7 +8,7 @@ namespace Assignment_3.Services
     {
         int Create(MovieRequest movie);
         void Delete(int id);
-
+        void UpdateCoverImage(int id, string coverImage);
         MovieResponse Get(int id);
         List<MovieResponse> GetAll();
         void Update(int id, MovieRequest movie);

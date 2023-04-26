@@ -139,5 +139,18 @@ EXEC Foundation.usp_update_Movie
             });
         }
 
+        public void UpdateCoverImage(int Id, string CoverImage)
+        {
+            const string query = @"
+UPDATE Foundation.Movies
+SET CoverImage=@CoverImage
+    ,UpdatedAt=CAST(GETDATE() AS date)
+WHERE Id=@Id";
+            Update(query, new
+            {
+                Id,
+                CoverImage
+            });
+        }
     }
 }

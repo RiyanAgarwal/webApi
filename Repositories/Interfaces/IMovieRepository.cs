@@ -10,5 +10,6 @@ namespace Assignment_3.Repositories
         MovieDB Get(int id);
         List<MovieDB> GetAll();
         void Update(MovieDB movie);
+        void UpdateCoverImage(int  id, string coverImage);
     }
 }
