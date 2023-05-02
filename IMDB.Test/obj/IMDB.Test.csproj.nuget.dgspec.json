@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\wrk\\ass3\\IMDB.Test\\IMDB.Test.csproj": {}
+    "C:\\wrk\\ass4\\webapi\\IMDB.Test\\IMDB.Test.csproj": {}
   },
   "projects": {
-    "C:\\wrk\\ass3\\IMDB.Test\\IMDB.Test.csproj": {
+    "C:\\wrk\\ass4\\webapi\\IMDB.Test\\IMDB.Test.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\wrk\\ass3\\IMDB.Test\\IMDB.Test.csproj",
+        "projectUniqueName": "C:\\wrk\\ass4\\webapi\\IMDB.Test\\IMDB.Test.csproj",
         "projectName": "IMDB.Test",
-        "projectPath": "C:\\wrk\\ass3\\IMDB.Test\\IMDB.Test.csproj",
+        "projectPath": "C:\\wrk\\ass4\\webapi\\IMDB.Test\\IMDB.Test.csproj",
         "packagesPath": "C:\\Users\\agarw\\.nuget\\packages\\",
-        "outputPath": "C:\\wrk\\ass3\\IMDB.Test\\obj\\",
+        "outputPath": "C:\\wrk\\ass4\\webapi\\IMDB.Test\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\agarw\\AppData\\Roaming\\NuGet\\NuGet.Config",

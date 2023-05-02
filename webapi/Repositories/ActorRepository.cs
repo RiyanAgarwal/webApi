@@ -1,4 +1,4 @@
-﻿using Assignment_3.Models.DB;
+﻿using Assignment_4.Models.DB;
 using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Data.SqlClient;
 using Dapper;
 using System.Collections;
 
-namespace Assignment_3.Repositories
+namespace Assignment_4.Repositories
 {
     public class ActorRepository : BaseRepository<ActorDB>, IActorRepository
     {

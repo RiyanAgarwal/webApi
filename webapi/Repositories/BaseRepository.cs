@@ -1,11 +1,11 @@
-﻿using Assignment_3.Models.DB;
+﻿using Assignment_4.Models.DB;
 using Dapper;
 using Microsoft.Extensions.Hosting;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 
-namespace Assignment_3.Repositories
+namespace Assignment_4.Repositories
 {
     public class BaseRepository<T> where T : class
     {

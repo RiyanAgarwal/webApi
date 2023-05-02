@@ -7584,11 +7584,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\wrk\\ass3\\IMDB.Test\\IMDB.Test.csproj",
+      "projectUniqueName": "C:\\wrk\\ass4\\webapi\\IMDB.Test\\IMDB.Test.csproj",
       "projectName": "IMDB.Test",
-      "projectPath": "C:\\wrk\\ass3\\IMDB.Test\\IMDB.Test.csproj",
+      "projectPath": "C:\\wrk\\ass4\\webapi\\IMDB.Test\\IMDB.Test.csproj",
       "packagesPath": "C:\\Users\\agarw\\.nuget\\packages\\",
-      "outputPath": "C:\\wrk\\ass3\\IMDB.Test\\obj\\",
+      "outputPath": "C:\\wrk\\ass4\\webapi\\IMDB.Test\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\agarw\\AppData\\Roaming\\NuGet\\NuGet.Config",

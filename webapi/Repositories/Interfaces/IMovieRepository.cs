@@ -1,7 +1,7 @@
-﻿using Assignment_3.Models.DB;
+﻿using Assignment_4.Models.DB;
 using System.Collections.Generic;
 
-namespace Assignment_3.Repositories
+namespace Assignment_4.Repositories
 {
     public interface IMovieRepository
     {
