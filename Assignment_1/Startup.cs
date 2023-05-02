@@ -16,16 +16,8 @@ namespace Assignment_1
 {
     public class Startup
     {
-        //public Startup(IConfiguration configuration)
-        //{
-        //    Configuration = configuration;
-        //}
-
-        //public IConfiguration Configuration { get; }
-
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
         }
 
@@ -34,8 +26,6 @@ namespace Assignment_1
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                //app.UseSwagger();
-                //app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Assignment_1 v1"));
             }
 
             app.UseRouting();
