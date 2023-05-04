@@ -26,10 +26,8 @@ namespace Assignment_2.Services
                 throw new ArgumentException("Invalid message");
             _movieService.Get(review.MovieId);
             var maxId = _reviewRepository.GetAll().Select(x => x.Id).DefaultIfEmpty(0).Max();
-            var reviewToBeAdded = _mapper.Map<ReviewDB>(review);
-            reviewToBeAdded.Id = maxId + 1;
-            _reviewRepository.Add(reviewToBeAdded);
-            return reviewToBeAdded.Id;
+            _reviewRepository.Add(review,maxId+1);
+            return maxId + 1;
         }
 
         public void Delete(int id)
@@ -44,16 +42,17 @@ namespace Assignment_2.Services
         }
         public ReviewResponse Get(int id)
         {
-            if (_reviewRepository.Get(id) == null)
+            var review= _reviewRepository.Get(id);
+            if (review== null)
                 throw new ArgumentException("Invalid review id");
-            return _mapper.Map<ReviewResponse>(_reviewRepository.Get(id));
+            return _mapper.Map<ReviewResponse>(review);
         }
         public void Update(int id, ReviewRequest review)
         {
+            var reviewDB = _reviewRepository.Get(id);
             if (string.IsNullOrEmpty(review.Message))
                 throw new ArgumentException("Invalid message");
             _movieService.Get(review.MovieId);
-            var reviewDB = _reviewRepository.Get(id);
             reviewDB.Message = review.Message;
             reviewDB.MovieId= review.MovieId;
         }

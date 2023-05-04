@@ -29,10 +29,8 @@ namespace Assignment_2.Services
             if (DateTime.Now < producer.DOB)
                 throw new ArgumentException("Invalid date");
             var maxId = _producerRepository.GetAll().Select(x => x.Id).DefaultIfEmpty(0).Max();
-            var producerToBeAdded = _mapper.Map<ProducerDB>(producer);
-            producerToBeAdded.Id = maxId + 1;
-            _producerRepository.Add(producerToBeAdded);
-            return producerToBeAdded.Id;
+            _producerRepository.Add(producer,maxId+1);
+            return maxId + 1;
         }
         public void Delete(int id)
         {
@@ -46,13 +44,15 @@ namespace Assignment_2.Services
         }
         public ProducerResponse Get(int id)
         {
-            if (_producerRepository.Get(id) == null)
+            var producer = _producerRepository.Get(id);
+            if (producer == null)
                 throw new ArgumentException("Invalid producer id");
-            return _mapper.Map<ProducerResponse>(_producerRepository.Get(id));
+            return _mapper.Map<ProducerResponse>(producer);
         }
         public void Update(int id, ProducerRequest producer)
         {
-            if (_producerRepository.Get(id) == null)
+            var producerDB = _producerRepository.Get(id);
+            if (producerDB == null)
                 throw new ArgumentException("Invalid producer id");
             if (string.IsNullOrEmpty(producer.Name))
                 throw new ArgumentException("Invalid name");
@@ -62,7 +62,6 @@ namespace Assignment_2.Services
                 throw new ArgumentException("Invalid bio");
             if (DateTime.Now < producer.DOB)
                 throw new ArgumentException("Invalid date");
-            var producerDB = _producerRepository.Get(id);
             producerDB.Name = producer.Name;
             producerDB.Bio = producer.Bio;
             producerDB.Gender = producer.Gender;

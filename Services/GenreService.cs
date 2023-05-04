@@ -24,10 +24,8 @@ namespace Assignment_2.Services
             if (string.IsNullOrEmpty(genre.Name))
                 throw new ArgumentException("Invalid name");
             var maxId = _genreRepository.GetAll().Select(x => x.Id).DefaultIfEmpty(0).Max();
-            var genreToBeAdded = _mapper.Map<GenreDB>(genre);
-            genreToBeAdded.Id = maxId + 1;
-            _genreRepository.Add(genreToBeAdded);
-            return genreToBeAdded.Id;
+            _genreRepository.Add(genre,maxId+1);
+            return maxId+1;
         }
         public void Delete(int id)
         {
@@ -41,17 +39,18 @@ namespace Assignment_2.Services
         }
         public GenreResponse Get(int id)
         {
-            if (_genreRepository.Get(id) == null)
+            var genre= _genreRepository.Get(id);
+            if (genre == null)
                 throw new ArgumentException("Invalid genre id");
-            return _mapper.Map<GenreResponse>(_genreRepository.Get(id));
+            return _mapper.Map<GenreResponse>(genre);
         }
         public void Update(int id, GenreRequest genre)
         {
+            var genreDB = _genreRepository.Get(id);
+            if (genreDB == null)
+                throw new ArgumentException("Invalid genre id");
             if(string.IsNullOrEmpty(genre.Name))
                 throw new ArgumentException("Invalid name");
-            if (_genreRepository.Get(id) == null)
-                throw new ArgumentException("Invalid genre id");
-            var genreDB = _genreRepository.Get(id);
             genreDB.Name = genre.Name;
         }
     }

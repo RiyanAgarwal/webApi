@@ -17,14 +17,16 @@ namespace Assignment_2.Helpers
             CreateMap<ActorRequest, ActorDB>();
             CreateMap<ActorDB, ActorResponse>();
             CreateMap<ProducerDB, ProducerResponse>();
-            CreateMap<ProducerRequest, ProducerDB>();
+            CreateMap<ProducerRequest, ProducerDB>().
+                ForMember(dest => dest.Id, src => src.Ignore());
             CreateMap<MovieDB, MovieResponse>();
             CreateMap<MovieRequest, MovieDB>().
-                ForMember(dest => dest.ActorsId, src => src.Ignore()).
-                ForMember(dest => dest.GenresId, src => src.Ignore());
-            CreateMap<GenreRequest, GenreDB>();
+                ForMember(dest=>dest.Id,src=>src.Ignore());
+            CreateMap<GenreRequest, GenreDB>().
+                ForMember(dest => dest.Id, src => src.Ignore());
             CreateMap<GenreDB, GenreResponse>();
-            CreateMap<ReviewRequest, ReviewDB>();
+            CreateMap<ReviewRequest, ReviewDB>().
+                ForMember(dest => dest.Id, src => src.Ignore());
             CreateMap<ReviewDB, ReviewResponse>();
         }
     }

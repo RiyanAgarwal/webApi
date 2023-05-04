@@ -29,10 +29,8 @@ namespace Assignment_2.Services
             if (DateTime.Now < actor.DOB)
                 throw new ArgumentException("Invalid date");
             var maxId = _actorRepository.GetAll().Select(x => x.Id).DefaultIfEmpty(0).Max();
-            var actorToBeAdded = _mapper.Map<ActorDB>(actor);
-            actorToBeAdded.Id = maxId + 1;
-            _actorRepository.Add(actorToBeAdded);
-            return actorToBeAdded.Id;
+            _actorRepository.Add(actor,maxId+1);
+            return maxId+1;
         }
         public void Delete(int id)
         {
@@ -46,12 +44,14 @@ namespace Assignment_2.Services
         }
         public ActorResponse Get(int id)
         {
-            if (_actorRepository.Get(id) == null)
+            var actor = _actorRepository.Get(id);
+            if (actor == null)
                 throw new ArgumentException("Invalid Actor id");
-            return _mapper.Map<ActorResponse>(_actorRepository.Get(id));
+            return _mapper.Map<ActorResponse>(actor);
         }
         public void Update(int id, ActorRequest actor)
         {
+            var actorDB = _actorRepository.Get(id);
             if (string.IsNullOrEmpty(actor.Name))
                 throw new ArgumentException("Invalid name");
             if (string.IsNullOrEmpty(actor.Gender))
@@ -60,9 +60,8 @@ namespace Assignment_2.Services
                 throw new ArgumentException("Invalid bio");
             if (DateTime.Now < actor.DOB)
                 throw new ArgumentException("Invalid date");
-            if (_actorRepository.Get(id) == null)
+            if (actorDB == null)
                 throw new ArgumentException("Invalid actor id");
-            var actorDB = _actorRepository.Get(id);
             actorDB.Name = actor.Name;
             actorDB.Bio = actor.Bio;
             actorDB.Gender = actor.Gender;
