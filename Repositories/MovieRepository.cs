@@ -21,36 +21,36 @@ namespace Assignment_3.Repositories
         public List<MovieDB> GetAll()
         {
             const string query = @"
-SELECT [Id]
-	,[Name]
-	,[YearOfRelease]
-	,[Plot]
-    ,[CoverImage]
-	,[ProducerId] 
-FROM Foundation.Movies";
+            SELECT [Id]
+	            ,[Name]
+	            ,[YearOfRelease]
+	            ,[Plot]
+                ,[CoverImage]
+	            ,[ProducerId] 
+            FROM Foundation.Movies";
             return GetAll(query);
         }
 
         public MovieDB Get(int id)
         {
             const string query = @"
-SELECT [Id]
-	,[Name]
-    ,[CoverImage]
-	,[YearOfRelease]
-	,[Plot]
-	,[ProducerId] 
-FROM Foundation.Movies
-WHERE Id = @Id";
+            SELECT [Id]
+	            ,[Name]
+                ,[CoverImage]
+	            ,[YearOfRelease]
+	            ,[Plot]
+	            ,[ProducerId] 
+            FROM Foundation.Movies
+            WHERE Id = @Id";
             return Get(query, new { Id = id });
         }
 
         public List<int> GetGenres(int id)
         {
             const string query = @"
-SELECT GenreId
-FROM Foundation.Genres_Movies
-WHERE MovieId = @Id";
+            SELECT GenreId
+            FROM Foundation.Genres_Movies
+            WHERE MovieId = @Id";
             using var connection = new SqlConnection(_connectionString);
             return connection.Query<int>(query, new {Id=id}).ToList();
         }
@@ -58,24 +58,24 @@ WHERE MovieId = @Id";
         public List<int> GetActors(int id)
         {
             const string query = @"
-SELECT ActorId
-FROM Foundation.Actors_Movies
-WHERE MovieId = @Id";
+            SELECT ActorId
+            FROM Foundation.Actors_Movies
+            WHERE MovieId = @Id";
             using var connection = new SqlConnection(_connectionString);
             return connection.Query<int>(query,new {Id =id}).ToList();
         }
         public void Add(MovieRequest movie)
         {
             const string query = @"
-EXEC Foundation.usp_insert_Movie 
-    @Name
-	,@Plot
-	,@Year
-	,@CoverImage
-	,@ProducerId
-	,@GenreList
-	,@ActorList
-";
+            EXEC Foundation.usp_insert_Movie 
+                @Name
+	            ,@Plot
+	            ,@Year
+	            ,@CoverImage
+	            ,@ProducerId
+	            ,@GenreList
+	            ,@ActorList
+            ";
             Create(query, new
             {
                 movie.Name,
@@ -90,23 +90,23 @@ EXEC Foundation.usp_insert_Movie
         public void Delete(int id)
         {
             const string query = @"
-DELETE FROM Foundation.Movies
-WHERE Id = @Id";
+            DELETE FROM Foundation.Movies
+            WHERE Id = @Id";
             Delete(query, new { Id = id });
         }
         public void Update(MovieRequest movie, int id)
         {
             const string query = @"
-EXEC Foundation.usp_update_Movie
-    @Id
-    ,@Name
-	,@Plot
-	,@YearOfRelease
-	,@CoverImage
-	,@ProducerId
-	,@GenreList
-	,@ActorList
-";
+            EXEC Foundation.usp_update_Movie
+                @Id
+                ,@Name
+	            ,@Plot
+	            ,@YearOfRelease
+	            ,@CoverImage
+	            ,@ProducerId
+	            ,@GenreList
+	            ,@ActorList
+            ";
             Update(query, new
             {
                 Id = id,
@@ -123,10 +123,10 @@ EXEC Foundation.usp_update_Movie
         public void UpdateCoverImage(int Id, string CoverImage)
         {
             const string query = @"
-UPDATE Foundation.Movies
-SET CoverImage=@CoverImage
-    ,UpdatedAt=CAST(GETDATE() AS date)
-WHERE Id=@Id";
+            UPDATE Foundation.Movies
+            SET CoverImage=@CoverImage
+                ,UpdatedAt=CAST(GETDATE() AS date)
+            WHERE Id=@Id";
             Update(query, new
             {
                 Id,

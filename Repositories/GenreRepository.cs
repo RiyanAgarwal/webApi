@@ -15,31 +15,31 @@ namespace Assignment_3.Repositories
         public List<GenreDB> GetAll()
         {
             const string query = @"
-SELECT [Id]
-	,[Name]
-FROM Foundation.Genres (NOLOCK)";
+            SELECT [Id]
+	            ,[Name]
+            FROM Foundation.Genres (NOLOCK)";
             return GetAll(query);
         }
 
         public GenreDB Get(int id)
         {
             const string query = @"
-SELECT [Id]
-	,[Name]
-FROM Foundation.Genres (NOLOCK)
-WHERE Id = @Id";
+            SELECT [Id]
+	            ,[Name]
+            FROM Foundation.Genres (NOLOCK)
+            WHERE Id = @Id";
             return Get(query, new { Id = id });
         }
 
         public void Add(GenreRequest genre)
         {
             string query = @"
-INSERT INTO Foundation.Genres (
-	Name
-	)
-VALUES (
-	@Name
-	)";
+            INSERT INTO Foundation.Genres (
+	            Name
+	            )
+            VALUES (
+	            @Name
+	            )";
             Create(query, new
             {
                 genre.Name,
@@ -48,17 +48,17 @@ VALUES (
         public void Delete(int id)
         {
             const string query = @"
-DELETE FROM Foundation.Genres
-WHERE Id = @Id";
+            DELETE FROM Foundation.Genres
+            WHERE Id = @Id";
             Delete(query, new { Id = id });
         }
         public void Update(GenreRequest genre, int id)
         {
             const string query = @"
-UPDATE Foundation.Genres
-SET Name = @Name
-    ,UpdatedAt=CAST(GETDATE() AS date)
-WHERE Id = @Id";
+            UPDATE Foundation.Genres
+            SET Name = @Name
+                ,UpdatedAt=CAST(GETDATE() AS date)
+            WHERE Id = @Id";
             Update(query, new
             {
                 genre.Name,

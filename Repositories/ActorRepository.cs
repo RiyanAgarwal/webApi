@@ -18,41 +18,41 @@ namespace Assignment_3.Repositories
         public List<ActorDB> GetAll()
         {
             const string query = @"
-SELECT [Id]
-	,[Name]
-	,[Gender]
-	,[DOB]
-	,[Bio]
-FROM Foundation.Actors (NOLOCK)";
+            SELECT [Id]
+	            ,[Name]
+	            ,[Gender]
+	            ,[DOB]
+	            ,[Bio]
+            FROM Foundation.Actors (NOLOCK)";
             return GetAll(query);
         }
         public ActorDB Get(int id)
         {
             const string query = @"
-SELECT [Id]
-	,[Name]
-	,[Gender]
-	,[DOB]
-	,[Bio]
-FROM Foundation.Actors (NOLOCK)
-WHERE Id = @Id";
+            SELECT [Id]
+	            ,[Name]
+	            ,[Gender]
+	            ,[DOB]
+	            ,[Bio]
+            FROM Foundation.Actors (NOLOCK)
+            WHERE Id = @Id";
             return Get(query, new { Id = id });
         }
         public void Add(ActorRequest actor)
         {
             string query = @"
-INSERT INTO Foundation.Actors (
-	Name
-	,DOB
-	,Bio
-	,Gender
-	)
-VALUES (
-	@Name
-	,@DOB
-	,@Bio
-	,@Gender
-	)";
+            INSERT INTO Foundation.Actors (
+	            Name
+	            ,DOB
+	            ,Bio
+	            ,Gender
+	            )
+            VALUES (
+	            @Name
+	            ,@DOB
+	            ,@Bio
+	            ,@Gender
+	            )";
             Create(query, new
             {
                 actor.Name,
@@ -64,21 +64,21 @@ VALUES (
         public void Delete(int id)
         {
             const string query = @"
-DELETE FROM Foundation.Actors
-WHERE Id = @Id";
+            DELETE FROM Foundation.Actors
+            WHERE Id = @Id";
             Delete(query, new { Id = id });
         }
 
         public void Update(ActorRequest actor, int id)
         {
             const string query = @"
-UPDATE Foundation.Actors
-SET Name = @Name
-	,Bio = @Bio
-	,Gender = @Gender
-	,Dob = @DOb
-    ,UpdatedAt=CAST(GETDATE() AS date)
-WHERE Id = @Id";
+            UPDATE Foundation.Actors
+            SET Name = @Name
+	            ,Bio = @Bio
+	            ,Gender = @Gender
+	            ,Dob = @DOb
+                ,UpdatedAt=CAST(GETDATE() AS date)
+            WHERE Id = @Id";
             Update(query, new
             {
                 actor.Name,
