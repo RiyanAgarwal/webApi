@@ -52,7 +52,7 @@ SELECT GenreId
 FROM Foundation.Genres_Movies
 WHERE MovieId = @Id";
             using var connection = new SqlConnection(_connectionString);
-            return connection.Query<int>(query).ToList();
+            return connection.Query<int>(query, new {Id=id}).ToList();
         }
 
         public List<int> GetActors(int id)
@@ -62,7 +62,7 @@ SELECT ActorId
 FROM Foundation.Actors_Movies
 WHERE MovieId = @Id";
             using var connection = new SqlConnection(_connectionString);
-            return connection.Query<int>(query).ToList();
+            return connection.Query<int>(query,new {Id =id}).ToList();
         }
         public void Add(MovieRequest movie)
         {
