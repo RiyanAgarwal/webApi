@@ -28,8 +28,7 @@ namespace Assignment_3.Services
                 throw new ArgumentException("Invalid bio");
             if (DateTime.Now < actor.DOB)
                 throw new ArgumentException("Invalid date");
-            var actorToBeAdded = _mapper.Map<ActorDB>(actor);
-            _actorRepository.Add(actorToBeAdded);
+            _actorRepository.Add(actor);
             return _actorRepository.GetAll().Select(x => x.Id).Max();
         }
         public void Delete(int id)
@@ -44,9 +43,10 @@ namespace Assignment_3.Services
         }
         public ActorResponse Get(int id)
         {
-            if (_actorRepository.Get(id) == null)
+            var actor = _actorRepository.Get(id);
+            if (actor == null)
                 throw new ArgumentException("Invalid Actor id");
-            return _mapper.Map<ActorResponse>(_actorRepository.Get(id));
+            return _mapper.Map<ActorResponse>(actor);
         }
         public void Update(int id, ActorRequest actor)
         {
@@ -60,9 +60,7 @@ namespace Assignment_3.Services
                 throw new ArgumentException("Invalid date");
             if (_actorRepository.Get(id) == null)
                 throw new ArgumentException("Invalid actor id");
-            var actorDB=_mapper.Map<ActorDB>(actor);
-            actorDB.Id = id;
-            _actorRepository.Update(actorDB);
+            _actorRepository.Update(actor,id);
         }
     }
 }

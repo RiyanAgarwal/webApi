@@ -1,11 +1,12 @@
 ﻿using Assignment_3.Models.DB;
+using Assignment_3.Models.Request;
 using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Assignment_3.Repositories
 {
-    public class GenreRepository : BaseRepository<GenreDB>,IGenreRepository
+    public class GenreRepository : BaseRepository<GenreDB>, IGenreRepository
     {
         public GenreRepository(IOptions<ConnectionString> connectionString)
             : base(connectionString.Value.IMDBDB)
@@ -30,7 +31,7 @@ WHERE Id = @Id";
             return Get(query, new { Id = id });
         }
 
-        public void Add(GenreDB genre)
+        public void Add(GenreRequest genre)
         {
             string query = @"
 INSERT INTO Foundation.Genres (
@@ -51,7 +52,7 @@ DELETE FROM Foundation.Genres
 WHERE Id = @Id";
             Delete(query, new { Id = id });
         }
-        public void Update(GenreDB genre)
+        public void Update(GenreRequest genre, int id)
         {
             const string query = @"
 UPDATE Foundation.Genres
@@ -61,7 +62,7 @@ WHERE Id = @Id";
             Update(query, new
             {
                 genre.Name,
-                genre.Id
+                Id = id
             });
         }
     }

@@ -40,8 +40,8 @@ namespace Assignment_3.Services
             if (DateTime.Now.Year < movie.YearOfRelease)
                 throw new ArgumentException("Invalid date");
             _producerService.Get(movie.ProducerId);
-            var genresList = movie.GenresId.Split(",").Select(x=>int.Parse(x)).ToList();
-            var actorsList = movie.ActorsId.Split(",").Select(x=>int.Parse(x)).ToList();            
+            var genresList = movie.GenresIds.Split(",").Select(x=>int.Parse(x)).ToList();
+            var actorsList = movie.ActorsIds.Split(",").Select(x=>int.Parse(x)).ToList();            
             foreach (var actorId in actorsList)
             {
                 _actorService.Get(actorId);
@@ -50,10 +50,7 @@ namespace Assignment_3.Services
             {
                 _genreService.Get(genreId);
             }
-            var movieToBeAdded = _mapper.Map<MovieDB>(movie);
-            movieToBeAdded.ActorsId = actorsList;
-            movieToBeAdded.GenresId = genresList;
-            _movieRepository.Add(movieToBeAdded);
+            _movieRepository.Add(movie);
             return _movieRepository.GetAll().Select(x => x.Id).Max();
         }
 
@@ -72,11 +69,11 @@ namespace Assignment_3.Services
             {
                 var actorResponse = new List<ActorResponse>();
                 var genreResponse = new List<GenreResponse>();
-                foreach (var actorId in movieList[i].ActorsId)
+                foreach (var actorId in _movieRepository.GetActors(movieList[i].Id))
                 {
                     actorResponse.Add(_actorService.Get(actorId));
                 }
-                foreach (var genreId in movieList[i].GenresId)
+                foreach (var genreId in _movieRepository.GetGenres(movieList[i].Id))
                 {
                     genreResponse.Add(_genreService.Get(genreId));
                 }
@@ -89,17 +86,17 @@ namespace Assignment_3.Services
 
         public MovieResponse Get(int id)
         {
-            if (_movieRepository.Get(id) == null)
-                throw new ArgumentException("Invalid movie id");
             var movieDB = _movieRepository.Get(id);
+            if (movieDB == null)
+                throw new ArgumentException("Invalid movie id");
             var movieResponse=_mapper.Map<MovieResponse>(movieDB);
             var actorResponse = new List<ActorResponse>();
             var genreResponse = new List<GenreResponse>();
-            foreach(var actorId in movieDB.ActorsId)
+            foreach(var actorId in _movieRepository.GetActors(id))
             {
                 actorResponse.Add(_actorService.Get(actorId));
             }
-            foreach (var genreId in movieDB.GenresId)
+            foreach (var genreId in _movieRepository.GetGenres(id))
             {
                 genreResponse.Add(_genreService.Get(genreId));
             }
@@ -121,8 +118,8 @@ namespace Assignment_3.Services
                 throw new ArgumentException("Invalid plot");
             if (DateTime.Now.Year < movie.YearOfRelease)
                 throw new ArgumentException("Invalid date");
-            var genresList = movie.GenresId.Split(",").Select(x => int.Parse(x)).ToList();
-            var actorsList = movie.ActorsId.Split(",").Select(x => int.Parse(x)).ToList();
+            var genresList = movie.GenresIds.Split(",").Select(x => int.Parse(x)).ToList();
+            var actorsList = movie.ActorsIds.Split(",").Select(x => int.Parse(x)).ToList();
             foreach (var actorId in actorsList)
             {
                 _actorService.Get(actorId);
@@ -131,11 +128,7 @@ namespace Assignment_3.Services
             {
                 _genreService.Get(genreId);
             }
-            var movieDB=_mapper.Map<MovieDB>(movie);
-            movieDB.Id = id;
-            movieDB.ActorsId = actorsList;
-            movieDB.GenresId = genresList;
-            _movieRepository.Update(movieDB);
+            _movieRepository.Update(movie,id);
         }
 
         public void UpdateCoverImage(int movieId,string imageURl)

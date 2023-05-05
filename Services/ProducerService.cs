@@ -28,8 +28,7 @@ namespace Assignment_3.Services
                 throw new ArgumentException("Invalid bio");
             if (DateTime.Now < producer.DOB)
                 throw new ArgumentException("Invalid date");
-            var producerToBeAdded = _mapper.Map<ProducerDB>(producer);
-            _producerRepository.Add(producerToBeAdded);
+            _producerRepository.Add(producer);
             return _producerRepository.GetAll().Select(x => x.Id).Max();
         }
         public void Delete(int id)
@@ -44,9 +43,10 @@ namespace Assignment_3.Services
         }
         public ProducerResponse Get(int id)
         {
-            if (_producerRepository.Get(id) == null)
+            var producer = _producerRepository.Get(id);
+            if (producer == null)
                 throw new ArgumentException("Invalid producer id");
-            return _mapper.Map<ProducerResponse>(_producerRepository.Get(id));
+            return _mapper.Map<ProducerResponse>(producer);
         }
         public void Update(int id, ProducerRequest producer)
         {
@@ -60,9 +60,7 @@ namespace Assignment_3.Services
                 throw new ArgumentException("Invalid bio");
             if (DateTime.Now < producer.DOB)
                 throw new ArgumentException("Invalid date");
-            var producerDB=_mapper.Map<ProducerDB>(producer);
-            producerDB.Id = id;
-            _producerRepository.Update(producerDB);
+            _producerRepository.Update(producer,id);
         }
     }
 }

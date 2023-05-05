@@ -19,7 +19,7 @@ namespace Assignment_3.Helpers
             CreateMap<ProducerDB, ProducerResponse>();
             CreateMap<ProducerRequest, ProducerDB>();
             CreateMap<MovieDB, MovieResponse>();
-            CreateMap<MovieRequest, MovieDB>().ForMember(dest=>dest.ActorsId,src=>src.Ignore()).ForMember(dest => dest.GenresId, src => src.Ignore());
+            CreateMap<MovieRequest, MovieDB>();
             CreateMap<GenreRequest, GenreDB>();
             CreateMap<GenreDB, GenreResponse>();
             CreateMap<ReviewRequest, ReviewDB>();

@@ -1,11 +1,12 @@
 ﻿using Assignment_3.Models.DB;
+using Assignment_3.Models.Request;
 using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Assignment_3.Repositories
 {
-    public class ReviewRepository :BaseRepository<ReviewDB>, IReviewRepository
+    public class ReviewRepository : BaseRepository<ReviewDB>, IReviewRepository
     {
         public ReviewRepository(IOptions<ConnectionString> connectionString)
             : base(connectionString.Value.IMDBDB)
@@ -31,7 +32,7 @@ WHERE Id = @Id";
             return Get(query, new { Id = id });
         }
 
-        public void Add(ReviewDB Review)
+        public void Add(ReviewRequest Review)
         {
             string query = @"
 INSERT INTO Foundation.Reviews (
@@ -55,7 +56,7 @@ DELETE FROM Foundation.Reviews
 WHERE Id = @Id";
             Delete(query, new { Id = id });
         }
-        public void Update(ReviewDB review)
+        public void Update(ReviewRequest review, int id)
         {
             const string query = @"
 UPDATE Foundation.Reviews
@@ -67,7 +68,7 @@ WHERE Id = @Id";
             {
                 review.Message,
                 review.MovieId,
-                review.Id
+                Id = id
             });
         }
     }

@@ -5,13 +5,14 @@ using System.Linq;
 using System.Data.SqlClient;
 using Dapper;
 using System.Collections;
+using Assignment_3.Models.Request;
 
 namespace Assignment_3.Repositories
 {
     public class ActorRepository : BaseRepository<ActorDB>, IActorRepository
     {
         public ActorRepository(IOptions<ConnectionString> connectionString)
-            :base(connectionString.Value.IMDBDB)
+            : base(connectionString.Value.IMDBDB)
         {
         }
         public List<ActorDB> GetAll()
@@ -35,9 +36,9 @@ SELECT [Id]
 	,[Bio]
 FROM Foundation.Actors (NOLOCK)
 WHERE Id = @Id";
-            return Get(query,new {Id=id});
+            return Get(query, new { Id = id });
         }
-        public void Add(ActorDB actor)
+        public void Add(ActorRequest actor)
         {
             string query = @"
 INSERT INTO Foundation.Actors (
@@ -68,7 +69,7 @@ WHERE Id = @Id";
             Delete(query, new { Id = id });
         }
 
-        public void Update(ActorDB actor)
+        public void Update(ActorRequest actor, int id)
         {
             const string query = @"
 UPDATE Foundation.Actors
@@ -84,7 +85,7 @@ WHERE Id = @Id";
                 actor.Bio,
                 actor.Gender,
                 actor.DOB,
-                actor.Id
+                Id=id
             });
         }
     }

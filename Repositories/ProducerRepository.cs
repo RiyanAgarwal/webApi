@@ -1,11 +1,12 @@
 ﻿using Assignment_3.Models.DB;
+using Assignment_3.Models.Request;
 using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace Assignment_3.Repositories
 {
-    public class ProducerRepository : BaseRepository<ProducerDB>,IProducerRepository
+    public class ProducerRepository : BaseRepository<ProducerDB>, IProducerRepository
     {
         public ProducerRepository(IOptions<ConnectionString> connectionString)
             : base(connectionString.Value.IMDBDB)
@@ -34,7 +35,7 @@ FROM Foundation.Producers (NOLOCK)
 WHERE Id = @Id";
             return Get(query, new { Id = id });
         }
-        public void Add(ProducerDB Producer)
+        public void Add(ProducerRequest Producer)
         {
             string query = @"
 INSERT INTO Foundation.Producers (
@@ -65,7 +66,7 @@ WHERE Id = @Id";
             Delete(query, new { Id = id });
         }
 
-        public void Update(ProducerDB producer)
+        public void Update(ProducerRequest producer, int id)
         {
             const string query = @"
 UPDATE Foundation.Producers
@@ -81,7 +82,7 @@ WHERE Id = @Id";
                 producer.Bio,
                 producer.Gender,
                 producer.DOB,
-                producer.Id
+                Id = id
             });
         }
     }

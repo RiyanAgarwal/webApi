@@ -1,15 +1,18 @@
 ﻿using Assignment_3.Models.DB;
+using Assignment_3.Models.Request;
 using System.Collections.Generic;
 
 namespace Assignment_3.Repositories
 {
     public interface IMovieRepository
     {
-        void Add(MovieDB movie);
+        void Add(MovieRequest movie);
         void Delete(int id);
         MovieDB Get(int id);
+        List<int> GetActors(int id);
         List<MovieDB> GetAll();
-        void Update(MovieDB movie);
-        void UpdateCoverImage(int  id, string coverImage);
+        List<int> GetGenres(int id);
+        void Update(MovieRequest movie, int id);
+        void UpdateCoverImage(int Id, string CoverImage);
     }
 }
