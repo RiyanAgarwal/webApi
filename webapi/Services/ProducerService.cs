@@ -1,13 +1,13 @@
-﻿using Assignment_3.Models.DB;
-using Assignment_3.Models.Request;
-using Assignment_3.Models.Response;
-using Assignment_3.Repositories;
+﻿using Assignment_4.Models.DB;
+using Assignment_4.Models.Request;
+using Assignment_4.Models.Response;
+using Assignment_4.Repositories;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Assignment_3.Services
+namespace Assignment_4.Services
 {
     public class ProducerService : IProducerService
     {

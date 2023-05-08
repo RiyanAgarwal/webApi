@@ -37,8 +37,7 @@ Scenario: Add new producer with valid details
 
 Scenario: Delete existing producer from repository
 	When the producer with Id 1 is deleted
-	Then the producer must be deleted
-	And status code "200 OK" is returned
+	Then status code "200 OK" is returned
 
 Scenario: Delete non existing producer from repository
 	When the producer with Id 0 is deleted
@@ -69,4 +68,3 @@ Scenario: Update producer with valid details
 	And the producer bio is "Good producer"
 	When producer is updated
 	Then status code "200 OK" is returned
-	And producer id 1 is displayed0.

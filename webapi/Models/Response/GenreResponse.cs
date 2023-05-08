@@ -1,4 +1,4 @@
-﻿namespace Assignment_3.Models.Response
+﻿namespace Assignment_4.Models.Response
 {
     public class GenreResponse
     {

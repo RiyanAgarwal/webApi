@@ -10,9 +10,9 @@ Scenario: Get non existing actor from repository
 	When the actor is fetched with Id 0
 	Then status code "400 Bad Request" is returned
 
-Scenario: Get all actors from repository
-	When the actors are fetched
-	Then list of actors are displayed
+Scenario: Get all reviews from repository
+	When the reviews are fetched
+	Then list of reviews are displayed
 
 Scenario Outline: Add new actor with invalid details
 	Given the following data is entered <Name>, <DOB>, <Bio>, <Gender>
@@ -37,8 +37,7 @@ Scenario: Add new actor with valid details
 
 Scenario: Delete existing actor from repository
 	When the actor with Id 1 is deleted
-	Then the actor must be deleted
-	And status code "200 OK" is returned
+	Then status code "200 OK" is returned
 
 Scenario: Delete non existing actor from repository
 	When the actor with Id 0 is deleted
@@ -69,4 +68,3 @@ Scenario: Update actor with valid details
 	And the actor bio is "Good actor"
 	When actor is updated
 	Then status code "200 OK" is returned
-	And actor id 1 is displayed

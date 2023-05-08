@@ -1,4 +1,4 @@
-﻿namespace Assignment_3.Models.Request
+﻿namespace Assignment_4.Models.Request
 {
     public class ReviewRequest
     {
