@@ -1,14 +1,14 @@
-﻿using Assignment_4.Models.DB;
-using Assignment_4.Models.Request;
-using Assignment_4.Models.Response;
-using Assignment_4.Repositories;
+﻿using Assignment_3.Models.DB;
+using Assignment_3.Models.Request;
+using Assignment_3.Models.Response;
+using Assignment_3.Repositories;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 
-namespace Assignment_4.Services
+namespace Assignment_3.Services
 {
     public class GenreService : IGenreService
     {
@@ -23,8 +23,7 @@ namespace Assignment_4.Services
         {
             if (string.IsNullOrEmpty(genre.Name))
                 throw new ArgumentException("Invalid name");
-            var genreToBeAdded = _mapper.Map<GenreDB>(genre);
-            _genreRepository.Add(genreToBeAdded);
+            _genreRepository.Add(genre);
             return _genreRepository.GetAll().Select(x => x.Id).Max();
         }
         public void Delete(int id)
@@ -39,9 +38,10 @@ namespace Assignment_4.Services
         }
         public GenreResponse Get(int id)
         {
-            if (_genreRepository.Get(id) == null)
+            var genre= _genreRepository.Get(id);
+            if (genre == null)
                 throw new ArgumentException("Invalid genre id");
-            return _mapper.Map<GenreResponse>(_genreRepository.Get(id));
+            return _mapper.Map<GenreResponse>(genre);
         }
         public void Update(int id, GenreRequest genre)
         {
@@ -49,9 +49,7 @@ namespace Assignment_4.Services
                 throw new ArgumentException("Invalid name");
             if (_genreRepository.Get(id) == null)
                 throw new ArgumentException("Invalid genre id");
-            var genreDB = _mapper.Map<GenreDB>(genre);
-            genreDB.Id = id;
-            _genreRepository.Update(genreDB);
+            _genreRepository.Update(genre,id);
         }
     }
 }

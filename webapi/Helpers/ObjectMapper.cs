@@ -1,14 +1,14 @@
-﻿using Assignment_4.Models.DB;
-using Assignment_4.Models.Request;
-using Assignment_4.Models.Response;
-using Assignment_4.Services;
+﻿using Assignment_3.Models.DB;
+using Assignment_3.Models.Request;
+using Assignment_3.Models.Response;
+using Assignment_3.Services;
 using AutoMapper;
 using AutoMapper.Internal.Mappers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Assignment_4.Helpers
+namespace Assignment_3.Helpers
 {
     public class ObjectMapper : Profile
     {
@@ -19,7 +19,7 @@ namespace Assignment_4.Helpers
             CreateMap<ProducerDB, ProducerResponse>();
             CreateMap<ProducerRequest, ProducerDB>();
             CreateMap<MovieDB, MovieResponse>();
-            CreateMap<MovieRequest, MovieDB>().ForMember(dest=>dest.ActorsId,src=>src.Ignore()).ForMember(dest => dest.GenresId, src => src.Ignore());
+            CreateMap<MovieRequest, MovieDB>();
             CreateMap<GenreRequest, GenreDB>();
             CreateMap<GenreDB, GenreResponse>();
             CreateMap<ReviewRequest, ReviewDB>();

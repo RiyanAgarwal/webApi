@@ -50,7 +50,7 @@ Scenario: Update non existing actor from repository
 
 Scenario Outline: Update existing actor with invalid details
 	Given the following data is entered <Name>, <DOB>, <Bio>, <Gender>
-	And the actoer id is 1
+	And the actor id is 1
 	When the actor is added
 	Then the error <Message> is displayed
 	And status code "400 Bad Request" is returned

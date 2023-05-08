@@ -1,4 +1,4 @@
-﻿namespace Assignment_4.Models.DB
+﻿namespace Assignment_3.Models.DB
 {
     public class ReviewDB
     {

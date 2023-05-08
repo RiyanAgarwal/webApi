@@ -1,57 +1,58 @@
-﻿using Assignment_4.Models.DB;
+﻿using Assignment_3.Models.DB;
 using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.Linq;
 using System.Data.SqlClient;
 using Dapper;
 using System.Collections;
+using Assignment_3.Models.Request;
 
-namespace Assignment_4.Repositories
+namespace Assignment_3.Repositories
 {
     public class ActorRepository : BaseRepository<ActorDB>, IActorRepository
     {
         public ActorRepository(IOptions<ConnectionString> connectionString)
-            :base(connectionString.Value.IMDBDB)
+            : base(connectionString.Value.IMDBDB)
         {
         }
         public List<ActorDB> GetAll()
         {
             const string query = @"
-SELECT [Id]
-	,[Name]
-	,[Gender]
-	,[DOB]
-	,[Bio]
-FROM Foundation.Actors (NOLOCK)";
+            SELECT [Id]
+	            ,[Name]
+	            ,[Gender]
+	            ,[DOB]
+	            ,[Bio]
+            FROM Foundation.Actors (NOLOCK)";
             return GetAll(query);
         }
         public ActorDB Get(int id)
         {
             const string query = @"
-SELECT [Id]
-	,[Name]
-	,[Gender]
-	,[DOB]
-	,[Bio]
-FROM Foundation.Actors (NOLOCK)
-WHERE Id = @Id";
-            return Get(query,new {Id=id});
+            SELECT [Id]
+	            ,[Name]
+	            ,[Gender]
+	            ,[DOB]
+	            ,[Bio]
+            FROM Foundation.Actors (NOLOCK)
+            WHERE Id = @Id";
+            return Get(query, new { Id = id });
         }
-        public void Add(ActorDB actor)
+        public void Add(ActorRequest actor)
         {
             string query = @"
-INSERT INTO Foundation.Actors (
-	Name
-	,DOB
-	,Bio
-	,Gender
-	)
-VALUES (
-	@Name
-	,@DOB
-	,@Bio
-	,@Gender
-	)";
+            INSERT INTO Foundation.Actors (
+	            Name
+	            ,DOB
+	            ,Bio
+	            ,Gender
+	            )
+            VALUES (
+	            @Name
+	            ,@DOB
+	            ,@Bio
+	            ,@Gender
+	            )";
             Create(query, new
             {
                 actor.Name,
@@ -63,28 +64,28 @@ VALUES (
         public void Delete(int id)
         {
             const string query = @"
-DELETE FROM Foundation.Actors
-WHERE Id = @Id";
+            DELETE FROM Foundation.Actors
+            WHERE Id = @Id";
             Delete(query, new { Id = id });
         }
 
-        public void Update(ActorDB actor)
+        public void Update(ActorRequest actor, int id)
         {
             const string query = @"
-UPDATE Foundation.Actors
-SET Name = @Name
-	,Bio = @Bio
-	,Gender = @Gender
-	,Dob = @DOb
-    ,UpdatedAt=CAST(GETDATE() AS date)
-WHERE Id = @Id";
+            UPDATE Foundation.Actors
+            SET Name = @Name
+	            ,Bio = @Bio
+	            ,Gender = @Gender
+	            ,Dob = @DOb
+                ,UpdatedAt=CAST(GETDATE() AS date)
+            WHERE Id = @Id";
             Update(query, new
             {
                 actor.Name,
                 actor.Bio,
                 actor.Gender,
                 actor.DOB,
-                actor.Id
+                Id=id
             });
         }
     }

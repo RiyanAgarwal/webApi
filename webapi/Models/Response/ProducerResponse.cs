@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Assignment_4.Models.Response
+namespace Assignment_3.Models.Response
 {
     public class ProducerResponse
     {

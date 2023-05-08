@@ -1,13 +1,13 @@
-﻿using Assignment_4.Models.DB;
-using Assignment_4.Models.Request;
-using Assignment_4.Models.Response;
-using Assignment_4.Repositories;
+﻿using Assignment_3.Models.DB;
+using Assignment_3.Models.Request;
+using Assignment_3.Models.Response;
+using Assignment_3.Repositories;
 using AutoMapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Assignment_4.Services
+namespace Assignment_3.Services
 {
     public class ReviewService : IReviewService
     {
@@ -25,8 +25,7 @@ namespace Assignment_4.Services
             if (string.IsNullOrEmpty(review.Message))
                 throw new ArgumentException("Invalid message");
             _movieService.Get(review.MovieId);
-            var reviewToBeAdded = _mapper.Map<ReviewDB>(review);
-            _reviewRepository.Add(reviewToBeAdded);
+            _reviewRepository.Add(review);
             return _reviewRepository.GetAll().Select(x => x.Id).Max();
         }
 
@@ -42,18 +41,17 @@ namespace Assignment_4.Services
         }
         public ReviewResponse Get(int id)
         {
-            if (_reviewRepository.Get(id) == null)
+            var review= _reviewRepository.Get(id);
+            if (review == null)
                 throw new ArgumentException("Invalid review id");
-            return _mapper.Map<ReviewResponse>(_reviewRepository.Get(id));
+            return _mapper.Map<ReviewResponse>(review);
         }
         public void Update(int id, ReviewRequest review)
         {
             if (string.IsNullOrEmpty(review.Message))
                 throw new ArgumentException("Invalid message");
             _movieService.Get(review.MovieId);
-            var reviewDB = _mapper.Map<ReviewDB>(review);
-            reviewDB.Id= id;
-            _reviewRepository.Update(reviewDB);
+            _reviewRepository.Update(review,id);
         }
     }
 }
