@@ -10,23 +10,23 @@ using Moq;
 
 namespace Assignment_4.Test.MockResources
 {
-    public class ActorMock
+    public class ProducerMock
     {
-        public static readonly Mock<IActorRepository> ActorRepoMock = new Mock<IActorRepository>();
-        private static readonly List<ActorDB> ListOfActors = new List<ActorDB>
+        public static readonly Mock<IProducerRepository> ProducerRepoMock = new Mock<IProducerRepository>();
+        private static readonly List<ProducerDB> ListOfProducers = new List<ProducerDB>
         {
-            new ActorDB
+            new ProducerDB
             {
                 Id = 1,
-                Name = "A1",
+                Name = "P1",
                 Bio = "--",
                 DOB =DateTime.Parse("2000-10-10T00:00:00"),
                 Gender="male"
             },
-            new ActorDB
+            new ProducerDB
             {
                 Id = 2,
-                Name = "A2",
+                Name = "P2",
                 Bio = "--",
                 DOB =DateTime.Parse("2000-10-10T00:00:00"),
                 Gender="male"
@@ -34,23 +34,23 @@ namespace Assignment_4.Test.MockResources
         };
         public static void MockGetAll()
         {
-            ActorRepoMock.Setup(x => x.GetAll()).Returns(ListOfActors);
+            ProducerRepoMock.Setup(x => x.GetAll()).Returns(ListOfProducers);
         }
         public static void MockGet()
         {
-            ActorRepoMock.Setup(x => x.Get(It.IsAny<int>())).Returns<int>(x => (x > 0) ? ListOfActors.Find(z=>z.Id==x): null);
+            ProducerRepoMock.Setup(x => x.Get(It.IsAny<int>())).Returns<int>(x => (x > 0) ? ListOfProducers.Find(z => z.Id == x) : null);
         }
         public static void MockAdd()
         {
-            ActorRepoMock.Setup(x => x.Add(It.IsAny<ActorRequest>()));
+            ProducerRepoMock.Setup(x => x.Add(It.IsAny<ProducerRequest>()));
         }
         public static void MockDelete()
         {
-            ActorRepoMock.Setup(x => x.Delete(It.IsAny<int>()));
+            ProducerRepoMock.Setup(x => x.Delete(It.IsAny<int>()));
         }
         public static void MockUpdate()
         {
-            ActorRepoMock.Setup(x => x.Update(It.IsAny<ActorRequest>(), It.IsAny<int>()));
+            ProducerRepoMock.Setup(x => x.Update(It.IsAny<ProducerRequest>(), It.IsAny<int>()));
         }
     }
 }

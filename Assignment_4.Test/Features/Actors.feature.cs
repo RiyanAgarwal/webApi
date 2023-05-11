@@ -99,11 +99,11 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 5
- testRunner.When("a GET request is made \'/actors/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("a GET request is made \'api/actors/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 6
- testRunner.Then("the response must be \'{\"Name\":\"A1\",\"Bio\":\"---\",\"DOB\":\"2000-10-10\",\"Gender\":\"male\"" +
-                        "}\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the response must be \'{\"id\":1,\"name\":\"A1\",\"bio\":\"--\",\"gender\":\"male\",\"dob\":\"2000-" +
+                        "10-10T00:00:00\"}\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 7
  testRunner.And("status code \'200\' is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
@@ -131,10 +131,10 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 10
- testRunner.When("a GET request is made \'actors/0\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("a GET request is made \'api/actors/0\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 11
- testRunner.Then("status code \'400\' is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("status code \'404\' is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -162,8 +162,9 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.When("a GET request is made \'api/actors\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 15
- testRunner.Then("the response must be \'[{\"Name\":\"A1\",\"Bio\":\"---\",\"DOB\":\"2000-10-10\",\"Gender\":\"male" +
-                        "\"},{\"Name\":\"A1\",\"Bio\":\"---\",\"DOB\":\"2000-10-10\",\"Gender\":\"male\"}]\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the response must be \'[{\"id\":1,\"name\":\"A1\",\"bio\":\"--\",\"gender\":\"male\",\"dob\":\"2000" +
+                        "-10-10T00:00:00\"},{\"id\":2,\"name\":\"A2\",\"bio\":\"--\",\"gender\":\"male\",\"dob\":\"2000-10-" +
+                        "10T00:00:00\"}]\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 16
  testRunner.And("status code \'200\' is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
@@ -177,7 +178,7 @@ this.ScenarioInitialize(scenarioInfo);
         [Xunit.TraitAttribute("Description", "Add new actor with invalid details")]
         [Xunit.InlineDataAttribute("Chris Evans", "2000-10-10", "Good actor", "", "Invalid gender", new string[0])]
         [Xunit.InlineDataAttribute("", "2000-10-10", "Good actor", "Male", "Invalid name", new string[0])]
-        [Xunit.InlineDataAttribute("Chris Evans", "2025-10-10", "Good actor", "Male", "Invalid Dob", new string[0])]
+        [Xunit.InlineDataAttribute("Chris Evans", "2025-10-10", "Good actor", "Male", "Invalid date", new string[0])]
         [Xunit.InlineDataAttribute("Chris Evans", "2000-10-10", "", "Male", "Invalid bio", new string[0])]
         public void AddNewActorWithInvalidDetails(string name, string dOB, string bio, string gender, string message, string[] exampleTags)
         {
@@ -200,16 +201,17 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 19
- testRunner.Given(string.Format("the following data is entered \'{{\"Name\":{0},\"Bio\":{1},\"DOB\":{2},\"Gender\":{3}}}\'", name, bio, dOB, gender), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given(string.Format("the following data is entered \'{{\"Name\":\"{0}\",\"Bio\":\"{1}\",\"DOB\":\"{2}\",\"Gender\":\"{" +
+                            "3}\"}}\'", name, bio, dOB, gender), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 20
- testRunner.When("a POST request is made \'actors\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("a POST request is made \'api/actors\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 21
- testRunner.Then(string.Format("the response must be \'{0}\'", message), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("status code \'400\' is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 22
- testRunner.And("status code \'400\' is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And(string.Format("the response must be \'{0}\'", message), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -238,13 +240,13 @@ this.ScenarioInitialize(scenarioInfo);
                         "0\",\"Gender\":\"male\"}\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 32
- testRunner.When("a POST request is made \'actors\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("a POST request is made \'api/actors\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 33
  testRunner.Then("status code \'201\' is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 34
- testRunner.And("the response must be \'1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the response must be \'2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -269,7 +271,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 37
- testRunner.When("a DELETE request is made \'actors/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("a DELETE request is made \'api/actors/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 38
  testRunner.Then("status code \'200\' is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
@@ -297,10 +299,10 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 41
- testRunner.When("a DELETE request is made \'actors/0\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("a DELETE request is made \'api/actors/0\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 42
- testRunner.Then("status code \'400\' is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("status code \'404\' is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -329,7 +331,7 @@ this.ScenarioInitialize(scenarioInfo);
                         "0\",\"Gender\":\"male\"}\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 46
- testRunner.When("a PUT request is made \'actors/0\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("a PUT request is made \'api/actors/0\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 47
  testRunner.Then("status code \'400\' is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
@@ -343,7 +345,7 @@ this.ScenarioInitialize(scenarioInfo);
         [Xunit.TraitAttribute("Description", "Update existing actor with invalid details")]
         [Xunit.InlineDataAttribute("Chris Evans", "2000-10-10", "Good actor", "", "Invalid gender", new string[0])]
         [Xunit.InlineDataAttribute("", "2000-10-10", "Good actor", "Male", "Invalid name", new string[0])]
-        [Xunit.InlineDataAttribute("Chris Evans", "2025-10-10", "Good actor", "Male", "Invalid Dob", new string[0])]
+        [Xunit.InlineDataAttribute("Chris Evans", "2025-10-10", "Good actor", "Male", "Invalid date", new string[0])]
         [Xunit.InlineDataAttribute("Chris Evans", "2000-10-10", "", "Male", "Invalid bio", new string[0])]
         public void UpdateExistingActorWithInvalidDetails(string name, string dOB, string bio, string gender, string message, string[] exampleTags)
         {
@@ -366,10 +368,11 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 50
- testRunner.Given(string.Format("the following data is entered \'{{\"Name\":{0},\"Bio\":{1},\"DOB\":{2},\"Gender\":{3}}}\'", name, bio, dOB, gender), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given(string.Format("the following data is entered \'{{\"Name\":\"{0}\",\"Bio\":\"{1}\",\"DOB\":\"{2}\",\"Gender\":\"{" +
+                            "3}\"}}\'", name, bio, dOB, gender), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 51
- testRunner.When("a PUT request is made \'actors/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("a PUT request is made \'api/actors/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 52
  testRunner.Then(string.Format("the response must be \'{0}\'", message), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");

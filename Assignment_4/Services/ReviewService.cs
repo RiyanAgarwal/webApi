@@ -50,6 +50,8 @@ namespace Assignment_4.Services
         {
             if (string.IsNullOrEmpty(review.Message))
                 throw new ArgumentException("Invalid message");
+            if (_reviewRepository.Get(id) == null)
+                throw new ArgumentException("Invalid review id");
             _movieService.Get(review.MovieId);
             _reviewRepository.Update(review,id);
         }

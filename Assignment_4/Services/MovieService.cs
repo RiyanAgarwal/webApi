@@ -118,6 +118,7 @@ namespace Assignment_4.Services
                 throw new ArgumentException("Invalid plot");
             if (DateTime.Now.Year < movie.YearOfRelease)
                 throw new ArgumentException("Invalid date");
+            _producerService.Get(movie.ProducerId);
             var genresList = movie.GenresIds.Split(",").Select(x => int.Parse(x)).ToList();
             var actorsList = movie.ActorsIds.Split(",").Select(x => int.Parse(x)).ToList();
             foreach (var actorId in actorsList)

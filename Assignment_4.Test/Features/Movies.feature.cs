@@ -99,13 +99,13 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 5
- testRunner.When("the movie is fetched with Id 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("a GET request is made \'api/movies/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 6
- testRunner.Then("the movie must be displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then(@"the response must be '{""id"":1,""name"":""M1"",""plot"":""plot1"",""producer"":{""id"":1,""name"":""P1"",""bio"":""--"",""gender"":""male"",""dob"":""2000-10-10T00:00:00""},""actors"":[{""id"":1,""name"":""A1"",""bio"":""--"",""gender"":""male"",""dob"":""2000-10-10T00:00:00""},{""id"":2,""name"":""A2"",""bio"":""--"",""gender"":""male"",""dob"":""2000-10-10T00:00:00""}],""yearOfRelease"":2000,""coverImage"":""www"",""genres"":[{""id"":1,""name"":""G1""},{""id"":2,""name"":""G2""}]}'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 7
- testRunner.And("status code \"200 OK\" is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("status code \'200\' is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -130,10 +130,10 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 10
- testRunner.When("the movie is fetched with Id 0", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("a GET request is made \'api/movies/0\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 11
- testRunner.Then("status code \"400 Bad Request\" is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("status code \'404\' is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -158,10 +158,13 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 14
- testRunner.When("the movies are fetched", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("a GET request is made \'api/movies\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 15
- testRunner.Then("list of movies are displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then(@"the response must be '[{""id"":1,""name"":""M1"",""plot"":""plot1"",""producer"":{""id"":1,""name"":""P1"",""bio"":""--"",""gender"":""male"",""dob"":""2000-10-10T00:00:00""},""actors"":[{""id"":1,""name"":""A1"",""bio"":""--"",""gender"":""male"",""dob"":""2000-10-10T00:00:00""},{""id"":2,""name"":""A2"",""bio"":""--"",""gender"":""male"",""dob"":""2000-10-10T00:00:00""}],""yearOfRelease"":2000,""coverImage"":""www"",""genres"":[{""id"":1,""name"":""G1""},{""id"":2,""name"":""G2""}]},{""id"":2,""name"":""M2"",""plot"":""plot1"",""producer"":{""id"":1,""name"":""P1"",""bio"":""--"",""gender"":""male"",""dob"":""2000-10-10T00:00:00""},""actors"":[{""id"":1,""name"":""A1"",""bio"":""--"",""gender"":""male"",""dob"":""2000-10-10T00:00:00""},{""id"":2,""name"":""A2"",""bio"":""--"",""gender"":""male"",""dob"":""2000-10-10T00:00:00""}],""yearOfRelease"":2000,""coverImage"":""www"",""genres"":[{""id"":1,""name"":""G1""},{""id"":2,""name"":""G2""}]}]'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 16
+ testRunner.And("status code \'200\' is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -171,12 +174,12 @@ this.ScenarioInitialize(scenarioInfo);
         [Xunit.TraitAttribute("FeatureTitle", "movies feature")]
         [Xunit.TraitAttribute("Description", "Add new movie with invalid details")]
         [Xunit.InlineDataAttribute("", "2000", "Good movie", "1", "1,2", "1,2", "www.poster.com", "Invalid name", new string[0])]
-        [Xunit.InlineDataAttribute("ford", "2070", "Good movie", "1", "1,2", "1,2", "www.poster.com", "Invalid year", new string[0])]
+        [Xunit.InlineDataAttribute("ford", "2070", "Good movie", "1", "1,2", "1,2", "www.poster.com", "Invalid date", new string[0])]
         [Xunit.InlineDataAttribute("ford", "2000", "", "1", "1,2", "1,2", "www.poster.com", "Invalid plot", new string[0])]
         [Xunit.InlineDataAttribute("ford", "2000", "Good movie", "9", "1,2", "1,2", "www.poster.com", "Invalid producer id", new string[0])]
-        [Xunit.InlineDataAttribute("ford", "2000", "Good movie", "1", "2,3", "1,2", "www.poster.com", "Invalid actor id", new string[0])]
+        [Xunit.InlineDataAttribute("ford", "2000", "Good movie", "1", "2,3", "1,2", "www.poster.com", "Invalid Actor id", new string[0])]
         [Xunit.InlineDataAttribute("ford", "2000", "Good movie", "1", "1,2", "2,3", "www.poster.com", "Invalid genre id", new string[0])]
-        [Xunit.InlineDataAttribute("ford", "2000", "Good movie", "1", "1,2", "1,2", "", "Invalid coverimage", new string[0])]
+        [Xunit.InlineDataAttribute("ford", "2000", "Good movie", "1", "1,2", "1,2", "", "Invalid cover", new string[0])]
         public void AddNewMovieWithInvalidDetails(string name, string yearOfRelease, string plot, string producerId, string actorsIds, string genresIds, string coverImage, string message, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
@@ -190,7 +193,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("CoverImage", coverImage);
             argumentsOfScenario.Add("Message", message);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add new movie with invalid details", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 17
+#line 18
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -200,17 +203,18 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 18
- testRunner.Given(string.Format("the following data is entered {0}, {1}, {2}, {3},{4},{5},{6}", name, yearOfRelease, plot, producerId, actorsIds, genresIds, coverImage), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
 #line 19
- testRunner.When("the movie is added", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Given(string.Format("the following data is entered \'{{\"name\":\"{0}\", \"yearOfRelease\":{1}, \"plot\":\"{2}\"," +
+                            " \"producerId\":{3},\"actorsIds\":\"{4}\",\"genresIds\":\"{5}\",\"coverImage\":\"{6}\"}}\'", name, yearOfRelease, plot, producerId, actorsIds, genresIds, coverImage), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 20
- testRunner.Then(string.Format("the error {0} is displayed", message), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.When("a POST request is made \'api/movies\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 21
- testRunner.And("status code \"400 Bad Request\" is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Then(string.Format("the response must be \'{0}\'", message), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 22
+ testRunner.And("status code \'400\' is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -224,7 +228,7 @@ this.ScenarioInitialize(scenarioInfo);
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add new movie with valid details", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 32
+#line 33
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -234,35 +238,18 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 33
- testRunner.Given("the movie name is \"Ford\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
 #line 34
- testRunner.And("the movie year is \"2000\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Given("the following data is entered \'{\"name\":\"ford\", \"yearOfRelease\":2000, \"plot\":\"plot" +
+                        "1\", \"producerId\":1,\"actorsIds\":\"1,2\",\"genresIds\":\"1,2\",\"coverImage\":\"www\"}\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 35
- testRunner.And("the movie plot is \"good movie\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.When("a POST request is made \'api/movies\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 36
- testRunner.And("the movie coverImage is \"www.poster.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Then("status code \'201\' is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 37
- testRunner.And("the movie producerId is 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 38
- testRunner.And("the movie GenresIds is \"1,2\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 39
- testRunner.And("the movie ActorsIds is \"1,2\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 40
- testRunner.When("movie is added to repository", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 41
- testRunner.Then("status code \"201 Created\" is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-#line 42
- testRunner.And("movie id 1 is displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the response must be \'2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -276,7 +263,7 @@ this.ScenarioInitialize(scenarioInfo);
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Delete existing movie from repository", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 44
+#line 39
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -286,11 +273,11 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 45
- testRunner.When("the movie with Id 1 is deleted", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 40
+ testRunner.When("a DELETE request is made \'api/movies/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 46
- testRunner.Then("status code \"200 OK\" is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 41
+ testRunner.Then("status code \'200\' is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -304,7 +291,7 @@ this.ScenarioInitialize(scenarioInfo);
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Delete non existing movie from repository", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 48
+#line 43
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -314,11 +301,11 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 49
- testRunner.When("the movie with Id 0 is deleted", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 44
+ testRunner.When("a DELETE request is made \'api/movies/0\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 50
- testRunner.Then("status code \"400 Bad Request\" is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 45
+ testRunner.Then("status code \'404\' is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -332,7 +319,7 @@ this.ScenarioInitialize(scenarioInfo);
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update non existing movie from repository", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 52
+#line 47
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -342,11 +329,15 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 53
- testRunner.When("the movie with Id 0 is updated", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 48
+ testRunner.Given("the following data is entered \'{\"name\":\"ford\", \"yearOfRelease\":2000, \"plot\":\"plot" +
+                        "1\", \"producerId\":1,\"actorsIds\":\"1,2\",\"genresIds\":\"1,2\",\"coverImage\":\"www\"}\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 54
- testRunner.Then("status code \"400 Bad Request\" is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 49
+ testRunner.When("a PUT request is made \'api/movies/0\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 50
+ testRunner.Then("status code \'400\' is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -356,12 +347,12 @@ this.ScenarioInitialize(scenarioInfo);
         [Xunit.TraitAttribute("FeatureTitle", "movies feature")]
         [Xunit.TraitAttribute("Description", "Update existing movie with invalid details")]
         [Xunit.InlineDataAttribute("", "2000", "Good movie", "1", "1,2", "1,2", "www.poster.com", "Invalid name", new string[0])]
-        [Xunit.InlineDataAttribute("ford", "2070", "Good movie", "1", "1,2", "1,2", "www.poster.com", "Invalid year", new string[0])]
+        [Xunit.InlineDataAttribute("ford", "2070", "Good movie", "1", "1,2", "1,2", "www.poster.com", "Invalid date", new string[0])]
         [Xunit.InlineDataAttribute("ford", "2000", "", "1", "1,2", "1,2", "www.poster.com", "Invalid plot", new string[0])]
         [Xunit.InlineDataAttribute("ford", "2000", "Good movie", "9", "1,2", "1,2", "www.poster.com", "Invalid producer id", new string[0])]
-        [Xunit.InlineDataAttribute("ford", "2000", "Good movie", "1", "2,3", "1,2", "www.poster.com", "Invalid actor id", new string[0])]
+        [Xunit.InlineDataAttribute("ford", "2000", "Good movie", "1", "2,3", "1,2", "www.poster.com", "Invalid Actor id", new string[0])]
         [Xunit.InlineDataAttribute("ford", "2000", "Good movie", "1", "1,2", "2,3", "www.poster.com", "Invalid genre id", new string[0])]
-        [Xunit.InlineDataAttribute("ford", "2000", "Good movie", "1", "1,2", "1,2", "", "Invalid coverimage", new string[0])]
+        [Xunit.InlineDataAttribute("ford", "2000", "Good movie", "1", "1,2", "1,2", "", "Invalid cover", new string[0])]
         public void UpdateExistingMovieWithInvalidDetails(string name, string yearOfRelease, string plot, string producerId, string actorsIds, string genresIds, string coverImage, string message, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
@@ -375,7 +366,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("CoverImage", coverImage);
             argumentsOfScenario.Add("Message", message);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update existing movie with invalid details", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 56
+#line 52
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -385,17 +376,18 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 57
- testRunner.Given(string.Format("the following data is entered {0}, {1}, {2}, {3},{4},{5},{6}", name, yearOfRelease, plot, producerId, actorsIds, genresIds, coverImage), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 53
+ testRunner.Given(string.Format("the following data is entered \'{{\"name\":\"{0}\", \"yearOfRelease\":{1}, \"plot\":\"{2}\"," +
+                            " \"producerId\":{3},\"actorsIds\":\"{4}\",\"genresIds\":\"{5}\",\"coverImage\":\"{6}\"}}\'", name, yearOfRelease, plot, producerId, actorsIds, genresIds, coverImage), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 58
- testRunner.When("the movie is added", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 54
+ testRunner.When("a PUT request is made \'api/movies/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 59
- testRunner.Then(string.Format("the error {0} is displayed", message), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 55
+ testRunner.Then(string.Format("the response must be \'{0}\'", message), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 60
- testRunner.And("status code \"400 Bad Request\" is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 56
+ testRunner.And("status code \'400\' is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -409,7 +401,7 @@ this.ScenarioInitialize(scenarioInfo);
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update movie with valid details", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 71
+#line 67
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -419,35 +411,15 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 72
- testRunner.Given("the movie id is 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 68
+ testRunner.Given("the following data is entered \'{\"name\":\"ford\", \"yearOfRelease\":2000, \"plot\":\"plot" +
+                        "1\", \"producerId\":1,\"actorsIds\":\"1,2\",\"genresIds\":\"1,2\",\"coverImage\":\"www\"}\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 73
- testRunner.And("the movie name is \"ford\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 69
+ testRunner.When("a PUT request is made \'api/movies/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 74
- testRunner.And("the movie year is \"2000\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 75
- testRunner.And("the movie plot is \"good movie\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 76
- testRunner.And("the movie coverImage is \"www.poster.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 77
- testRunner.And("the movie producerId is 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 78
- testRunner.And("the movie GenresIds is \"1,2\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 79
- testRunner.And("the movie ActorsIds is \"1,2\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 80
- testRunner.When("movie is updated", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 81
- testRunner.Then("status code \"200 OK\" is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 70
+ testRunner.Then("status code \'200\' is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

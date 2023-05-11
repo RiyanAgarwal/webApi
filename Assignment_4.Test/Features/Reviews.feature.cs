@@ -40,7 +40,7 @@ namespace Assignment_4.Test.Features
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "reviews feature", "All operations related to reviews", ProgrammingLanguage.CSharp, featureTags);
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Reviews feature", "All operations related to reviews", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -81,7 +81,7 @@ namespace Assignment_4.Test.Features
         }
         
         [Xunit.SkippableFactAttribute(DisplayName="Get existing review from repository")]
-        [Xunit.TraitAttribute("FeatureTitle", "reviews feature")]
+        [Xunit.TraitAttribute("FeatureTitle", "Reviews feature")]
         [Xunit.TraitAttribute("Description", "Get existing review from repository")]
         public void GetExistingReviewFromRepository()
         {
@@ -99,20 +99,20 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 5
- testRunner.When("the review is fetched with Id 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("a GET request is made \'api/reviews/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 6
- testRunner.Then("the review must be displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the response must be \'{\"id\":1,\"movieId\":1,\"message\":\"--\"}\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 7
- testRunner.And("status code \"200 OK\" is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("status code \'200\' is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [Xunit.SkippableFactAttribute(DisplayName="Get non existing review from repository")]
-        [Xunit.TraitAttribute("FeatureTitle", "reviews feature")]
+        [Xunit.TraitAttribute("FeatureTitle", "Reviews feature")]
         [Xunit.TraitAttribute("Description", "Get non existing review from repository")]
         public void GetNonExistingReviewFromRepository()
         {
@@ -130,17 +130,17 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 10
- testRunner.When("the review is fetched with Id 0", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("a GET request is made \'api/reviews/0\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 11
- testRunner.Then("status code \"400 Bad Request\" is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("status code \'404\' is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [Xunit.SkippableFactAttribute(DisplayName="Get all reviews from repository")]
-        [Xunit.TraitAttribute("FeatureTitle", "reviews feature")]
+        [Xunit.TraitAttribute("FeatureTitle", "Reviews feature")]
         [Xunit.TraitAttribute("Description", "Get all reviews from repository")]
         public void GetAllReviewsFromRepository()
         {
@@ -158,29 +158,33 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 14
- testRunner.When("the reviews are fetched", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("a GET request is made \'api/reviews\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 15
- testRunner.Then("list of reviews are displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the response must be \'[{\"id\":1,\"movieId\":1,\"message\":\"--\"},{\"id\":2,\"movieId\":1,\"m" +
+                        "essage\":\"--\"}]\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 16
+ testRunner.And("status code \'200\' is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [Xunit.SkippableTheoryAttribute(DisplayName="Add new review with invalid details")]
-        [Xunit.TraitAttribute("FeatureTitle", "reviews feature")]
+        [Xunit.TraitAttribute("FeatureTitle", "Reviews feature")]
         [Xunit.TraitAttribute("Description", "Add new review with invalid details")]
-        [Xunit.InlineDataAttribute("", "1", "Invalid message", new string[0])]
-        [Xunit.InlineDataAttribute("Good movie", "0", "Invalid movie id", new string[0])]
-        public void AddNewReviewWithInvalidDetails(string message, string movieId, string error, string[] exampleTags)
+        [Xunit.InlineDataAttribute("0", "good movie", "Invalid movie id", new string[0])]
+        [Xunit.InlineDataAttribute("1", "", "Invalid message", new string[0])]
+        public void AddNewReviewWithInvalidDetails(string movieId, string message, string error, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("movieId", movieId);
             argumentsOfScenario.Add("Message", message);
-            argumentsOfScenario.Add("MovieId", movieId);
             argumentsOfScenario.Add("Error", error);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add new review with invalid details", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 17
+#line 18
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -190,31 +194,31 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 18
- testRunner.Given(string.Format("the following data is entered {0}, {1}", message, movieId), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
 #line 19
- testRunner.When("the review is added", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Given(string.Format("the following data is entered \'{{\"movieId\":{0},\"message\":\"{1}\"}}\'", movieId, message), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 20
- testRunner.Then(string.Format("the error {0} is displayed", error), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.When("a POST request is made \'api/reviews\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 21
- testRunner.And("status code \"400 Bad Request\" is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Then("status code \'400\' is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 22
+ testRunner.And(string.Format("the response must be \'{0}\'", error), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [Xunit.SkippableFactAttribute(DisplayName="Add new review with valid details")]
-        [Xunit.TraitAttribute("FeatureTitle", "reviews feature")]
+        [Xunit.TraitAttribute("FeatureTitle", "Reviews feature")]
         [Xunit.TraitAttribute("Description", "Add new review with valid details")]
         public void AddNewReviewWithValidDetails()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add new review with valid details", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 27
+#line 28
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -224,27 +228,24 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 28
- testRunner.Given("the review name is \"Good movie\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
 #line 29
- testRunner.And("the MovieId is 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Given("the following data is entered \'{\"movieId\":1,\"message\":\"--\"}\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 30
- testRunner.When("review is added to repository", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("a POST request is made \'api/reviews\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 31
- testRunner.Then("status code \"201 Created\" is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("status code \'201\' is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 32
- testRunner.And("review id 1 is displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the response must be \'2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [Xunit.SkippableFactAttribute(DisplayName="Delete existing review from repository")]
-        [Xunit.TraitAttribute("FeatureTitle", "reviews feature")]
+        [Xunit.TraitAttribute("FeatureTitle", "Reviews feature")]
         [Xunit.TraitAttribute("Description", "Delete existing review from repository")]
         public void DeleteExistingReviewFromRepository()
         {
@@ -262,17 +263,17 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 35
- testRunner.When("the review with Id 1 is deleted", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("a DELETE request is made \'api/reviews/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 36
- testRunner.Then("status code \"200 OK\" is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("status code \'200\' is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [Xunit.SkippableFactAttribute(DisplayName="Delete non existing review from repository")]
-        [Xunit.TraitAttribute("FeatureTitle", "reviews feature")]
+        [Xunit.TraitAttribute("FeatureTitle", "Reviews feature")]
         [Xunit.TraitAttribute("Description", "Delete non existing review from repository")]
         public void DeleteNonExistingReviewFromRepository()
         {
@@ -290,17 +291,17 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 39
- testRunner.When("the review with Id 0 is deleted", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("a DELETE request is made \'api/reviews/0\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 40
- testRunner.Then("status code \"400 Bad Request\" is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("status code \'404\' is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [Xunit.SkippableFactAttribute(DisplayName="Update non existing review from repository")]
-        [Xunit.TraitAttribute("FeatureTitle", "reviews feature")]
+        [Xunit.TraitAttribute("FeatureTitle", "Reviews feature")]
         [Xunit.TraitAttribute("Description", "Update non existing review from repository")]
         public void UpdateNonExistingReviewFromRepository()
         {
@@ -318,29 +319,32 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 43
- testRunner.When("the review with Id 0 is updated", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Given("the following data is entered \'{\"movieId\":1,\"message\":\"--\"}\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 44
- testRunner.Then("status code \"400 Bad Request\" is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.When("a PUT request is made \'api/reviews/0\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 45
+ testRunner.Then("status code \'400\' is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [Xunit.SkippableTheoryAttribute(DisplayName="Update existing review with invalid details")]
-        [Xunit.TraitAttribute("FeatureTitle", "reviews feature")]
+        [Xunit.TraitAttribute("FeatureTitle", "Reviews feature")]
         [Xunit.TraitAttribute("Description", "Update existing review with invalid details")]
-        [Xunit.InlineDataAttribute("", "1", "Invalid message", new string[0])]
-        [Xunit.InlineDataAttribute("Good movie", "0", "Invalid movie id", new string[0])]
-        public void UpdateExistingReviewWithInvalidDetails(string message, string movieId, string error, string[] exampleTags)
+        [Xunit.InlineDataAttribute("0", "good movie", "Invalid movie id", new string[0])]
+        [Xunit.InlineDataAttribute("1", "", "Invalid message", new string[0])]
+        public void UpdateExistingReviewWithInvalidDetails(string movieId, string message, string error, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("movieId", movieId);
             argumentsOfScenario.Add("Message", message);
-            argumentsOfScenario.Add("MovieId", movieId);
             argumentsOfScenario.Add("Error", error);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update existing review with invalid details", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 46
+#line 47
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -350,27 +354,24 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 47
- testRunner.Given(string.Format("the following data is entered {0}, {1}", message, movieId), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
 #line 48
- testRunner.And("the review id is 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Given(string.Format("the following data is entered \'{{\"movieId\":{0},\"message\":\"{1}\"}}\'", movieId, message), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 49
- testRunner.When("the review is updated", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("a PUT request is made \'api/reviews/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 50
- testRunner.Then(string.Format("the error {0} is displayed", error), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then(string.Format("the response must be \'{0}\'", error), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 51
- testRunner.And("status code \"400 Bad Request\" is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("status code \'400\' is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [Xunit.SkippableFactAttribute(DisplayName="Update review with valid details")]
-        [Xunit.TraitAttribute("FeatureTitle", "reviews feature")]
+        [Xunit.TraitAttribute("FeatureTitle", "Reviews feature")]
         [Xunit.TraitAttribute("Description", "Update review with valid details")]
         public void UpdateReviewWithValidDetails()
         {
@@ -388,19 +389,13 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 58
- testRunner.Given("the review id is 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the following data is entered \'{\"movieId\":1,\"message\":\"<Message>\"}\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 59
- testRunner.And("the review message is \"Good movie\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.When("a PUT request is made \'/api/reviews/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 60
- testRunner.And("the MovieId 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 61
- testRunner.When("review is updated", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 62
- testRunner.Then("status code \"200 OK\" is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("status code \'200\' is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

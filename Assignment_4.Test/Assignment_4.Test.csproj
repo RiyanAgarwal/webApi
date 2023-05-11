@@ -40,4 +40,16 @@
     <ProjectReference Include="..\Assignment_4\Assignment_4.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="StepDefinitions\MovieSteps.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="StepDefinitions\ReviewSteps.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="StepDefinitions\ProducerSteps.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+
 </Project>

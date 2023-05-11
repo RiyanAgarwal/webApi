@@ -7,17 +7,17 @@ using TechTalk.SpecFlow;
 
 namespace Assignment_4.Test.StepFiles
 {
-    [Scope(Feature = "Actors feature")]
+    [Scope(Feature = "Producers feature")]
     [Binding]
-    public class ActorSteps : BaseStepDefinitions
+    public class ProducerSteps : BaseStepDefinitions
     {
-        public ActorSteps(CustomWebApplicationFactory factory)
+        public ProducerSteps(CustomWebApplicationFactory factory)
             : base(factory.WithWebHostBuilder(builder =>
             {
                 builder.ConfigureServices(services =>
                 {
                     // Mock Repo
-                    services.AddScoped(x => ActorMock.ActorRepoMock.Object);
+                    services.AddScoped(x => ProducerMock.ProducerRepoMock.Object);
                 });
             }))
         { 
@@ -25,11 +25,12 @@ namespace Assignment_4.Test.StepFiles
         [BeforeScenario]
         public static void Mocks()
         {
-            ActorMock.MockGetAll();
-            ActorMock.MockGet();
-            ActorMock.MockDelete();
-            ActorMock.MockAdd();
-            ActorMock.MockUpdate();
+            ProducerMock.MockGetAll();
+            ProducerMock.MockGet();
+            ProducerMock.MockDelete();
+            ProducerMock.MockAdd();
+            ProducerMock.MockUpdate();
+
         }
     }
 }

@@ -7,29 +7,30 @@ using TechTalk.SpecFlow;
 
 namespace Assignment_4.Test.StepFiles
 {
-    [Scope(Feature = "Actors feature")]
+    [Scope(Feature = "Genres feature")]
     [Binding]
-    public class ActorSteps : BaseStepDefinitions
+    public class GenreSteps : BaseStepDefinitions
     {
-        public ActorSteps(CustomWebApplicationFactory factory)
+        public GenreSteps(CustomWebApplicationFactory factory)
             : base(factory.WithWebHostBuilder(builder =>
             {
                 builder.ConfigureServices(services =>
                 {
                     // Mock Repo
-                    services.AddScoped(x => ActorMock.ActorRepoMock.Object);
+                    services.AddScoped(x => GenreMock.GenreRepoMock.Object);
                 });
             }))
-        { 
+        {
         }
         [BeforeScenario]
         public static void Mocks()
         {
-            ActorMock.MockGetAll();
-            ActorMock.MockGet();
-            ActorMock.MockDelete();
-            ActorMock.MockAdd();
-            ActorMock.MockUpdate();
+            GenreMock.MockGetAll();
+            GenreMock.MockGet();
+            GenreMock.MockDelete();
+            GenreMock.MockAdd();
+            GenreMock.MockUpdate();
+
         }
     }
 }

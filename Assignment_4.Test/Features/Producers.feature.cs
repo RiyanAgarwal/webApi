@@ -99,13 +99,14 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 5
- testRunner.When("the producer is fetched with Id 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("a GET request is made \'api/producers/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 6
- testRunner.Then("the producer must be displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the response must be \'{\"id\":1,\"name\":\"P1\",\"bio\":\"--\",\"gender\":\"male\",\"dob\":\"2000-" +
+                        "10-10T00:00:00\"}\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 7
- testRunner.And("status code \"200 OK\" is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("status code \'200\' is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -130,10 +131,10 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 10
- testRunner.When("the producer is fetched with Id 0", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("a GET request is made \'api/producers/0\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 11
- testRunner.Then("status code \"400 Bad Request\" is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("status code \'404\' is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -158,10 +159,15 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 14
- testRunner.When("the producers are fetched", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("a GET request is made \'api/producers\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 15
- testRunner.Then("list of producers are displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the response must be \'[{\"id\":1,\"name\":\"P1\",\"bio\":\"--\",\"gender\":\"male\",\"dob\":\"2000" +
+                        "-10-10T00:00:00\"},{\"id\":2,\"name\":\"P2\",\"bio\":\"--\",\"gender\":\"male\",\"dob\":\"2000-10-" +
+                        "10T00:00:00\"}]\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 16
+ testRunner.And("status code \'200\' is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -170,10 +176,10 @@ this.ScenarioInitialize(scenarioInfo);
         [Xunit.SkippableTheoryAttribute(DisplayName="Add new producer with invalid details")]
         [Xunit.TraitAttribute("FeatureTitle", "Producers feature")]
         [Xunit.TraitAttribute("Description", "Add new producer with invalid details")]
-        [Xunit.InlineDataAttribute("Harry Cook", "2000-10-10", "Good producer", "", "Invalid gender", new string[0])]
+        [Xunit.InlineDataAttribute("Chris Evans", "2000-10-10", "Good producer", "", "Invalid gender", new string[0])]
         [Xunit.InlineDataAttribute("", "2000-10-10", "Good producer", "Male", "Invalid name", new string[0])]
-        [Xunit.InlineDataAttribute("Harry Cook", "2025-10-10", "Good producer", "Male", "Invalid Dob", new string[0])]
-        [Xunit.InlineDataAttribute("Harry Cook", "2000-10-10", "", "Male", "Invalid bio", new string[0])]
+        [Xunit.InlineDataAttribute("Chris Evans", "2025-10-10", "Good producer", "Male", "Invalid date", new string[0])]
+        [Xunit.InlineDataAttribute("Chris Evans", "2000-10-10", "", "Male", "Invalid bio", new string[0])]
         public void AddNewProducerWithInvalidDetails(string name, string dOB, string bio, string gender, string message, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
@@ -184,7 +190,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("Gender", gender);
             argumentsOfScenario.Add("Message", message);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add new producer with invalid details", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 17
+#line 18
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -194,17 +200,18 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 18
- testRunner.Given(string.Format("the following data is entered {0}, {1}, {2}, {3}", name, dOB, bio, gender), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
 #line 19
- testRunner.When("the producer is added", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Given(string.Format("the following data is entered \'{{\"Name\":\"{0}\",\"Bio\":\"{1}\",\"DOB\":\"{2}\",\"Gender\":\"{" +
+                            "3}\"}}\'", name, bio, dOB, gender), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 20
- testRunner.Then(string.Format("the error {0} is displayed", message), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.When("a POST request is made \'api/producers\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 21
- testRunner.And("status code \"400 Bad Request\" is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Then("status code \'400\' is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 22
+ testRunner.And(string.Format("the response must be \'{0}\'", message), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -218,7 +225,7 @@ this.ScenarioInitialize(scenarioInfo);
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add new producer with valid details", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 29
+#line 30
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -228,26 +235,18 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 30
- testRunner.Given("the producer name is \"Harry Cook\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
 #line 31
- testRunner.And("the producer DOB is \"2000-10-10\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Given("the following data is entered \'{\"Name\":\"Chris Evans\",\"Bio\":\"---\",\"DOB\":\"2000-10-1" +
+                        "0\",\"Gender\":\"male\"}\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 32
- testRunner.And("the producer gender is \"male\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.When("a POST request is made \'api/producers\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 33
- testRunner.And("the producer bio is \"Good producer\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Then("status code \'201\' is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 34
- testRunner.When("producer is added to repository", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 35
- testRunner.Then("status code \"201 Created\" is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-#line 36
- testRunner.And("producer id 1 is displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the response must be \'2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -261,7 +260,7 @@ this.ScenarioInitialize(scenarioInfo);
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Delete existing producer from repository", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 38
+#line 36
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -271,11 +270,11 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 39
- testRunner.When("the producer with Id 1 is deleted", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 37
+ testRunner.When("a DELETE request is made \'api/producers/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 40
- testRunner.Then("status code \"200 OK\" is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 38
+ testRunner.Then("status code \'200\' is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -289,7 +288,7 @@ this.ScenarioInitialize(scenarioInfo);
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Delete non existing producer from repository", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 42
+#line 40
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -299,11 +298,11 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 43
- testRunner.When("the producer with Id 0 is deleted", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 41
+ testRunner.When("a DELETE request is made \'api/producers/0\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 44
- testRunner.Then("status code \"400 Bad Request\" is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 42
+ testRunner.Then("status code \'404\' is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -317,7 +316,7 @@ this.ScenarioInitialize(scenarioInfo);
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update non existing producer from repository", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 46
+#line 44
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -327,11 +326,15 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 47
- testRunner.When("the producer with Id 0 is updated", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 45
+ testRunner.Given("the following data is entered \'{\"Name\":\"Chris Evans\",\"Bio\":\"---\",\"DOB\":\"2000-10-1" +
+                        "0\",\"Gender\":\"male\"}\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 48
- testRunner.Then("status code \"400 Bad Request\" is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 46
+ testRunner.When("a PUT request is made \'api/producers/0\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 47
+ testRunner.Then("status code \'400\' is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -340,10 +343,10 @@ this.ScenarioInitialize(scenarioInfo);
         [Xunit.SkippableTheoryAttribute(DisplayName="Update existing producer with invalid details")]
         [Xunit.TraitAttribute("FeatureTitle", "Producers feature")]
         [Xunit.TraitAttribute("Description", "Update existing producer with invalid details")]
-        [Xunit.InlineDataAttribute("Harry Cook", "2000-10-10", "Good producer", "", "Invalid gender", new string[0])]
+        [Xunit.InlineDataAttribute("Chris Evans", "2000-10-10", "Good producer", "", "Invalid gender", new string[0])]
         [Xunit.InlineDataAttribute("", "2000-10-10", "Good producer", "Male", "Invalid name", new string[0])]
-        [Xunit.InlineDataAttribute("Harry Cook", "2025-10-10", "Good producer", "Male", "Invalid Dob", new string[0])]
-        [Xunit.InlineDataAttribute("Harry Cook", "2000-10-10", "", "Male", "Invalid bio", new string[0])]
+        [Xunit.InlineDataAttribute("Chris Evans", "2025-10-10", "Good producer", "Male", "Invalid date", new string[0])]
+        [Xunit.InlineDataAttribute("Chris Evans", "2000-10-10", "", "Male", "Invalid bio", new string[0])]
         public void UpdateExistingProducerWithInvalidDetails(string name, string dOB, string bio, string gender, string message, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
@@ -354,7 +357,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("Gender", gender);
             argumentsOfScenario.Add("Message", message);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update existing producer with invalid details", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 50
+#line 49
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -364,20 +367,18 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
+#line 50
+ testRunner.Given(string.Format("the following data is entered \'{{\"Name\":\"{0}\",\"Bio\":\"{1}\",\"DOB\":\"{2}\",\"Gender\":\"{" +
+                            "3}\"}}\'", name, bio, dOB, gender), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
 #line 51
- testRunner.Given(string.Format("the following data is entered {0}, {1}, {2}, {3}", name, dOB, bio, gender), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.When("a PUT request is made \'api/producers/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 52
- testRunner.And("the producer id is 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Then(string.Format("the response must be \'{0}\'", message), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 53
- testRunner.When("the producer is added", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 54
- testRunner.Then(string.Format("the error {0} is displayed", message), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-#line 55
- testRunner.And("status code \"400 Bad Request\" is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("status code \'400\' is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -391,7 +392,7 @@ this.ScenarioInitialize(scenarioInfo);
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Update producer with valid details", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 63
+#line 61
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -401,26 +402,15 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
+#line 62
+ testRunner.Given("the following data is entered \'{\"Name\":\"Chris Evans\",\"Bio\":\"---\",\"DOB\":\"2000-10-1" +
+                        "0\",\"Gender\":\"male\"}\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 63
+ testRunner.When("a PUT request is made \'/api/producers/1\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
 #line 64
- testRunner.Given("the producer id is 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 65
- testRunner.And("the producer name is \"Harry Cook\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 66
- testRunner.And("the producer DOB is \"2000-10-10\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 67
- testRunner.And("the producer gender is \"male\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 68
- testRunner.And("the producer bio is \"Good producer\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 69
- testRunner.When("producer is updated", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 70
- testRunner.Then("status code \"200 OK\" is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("status code \'200\' is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

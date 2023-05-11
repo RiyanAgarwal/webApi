@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace Assignment_4.Test
+namespace Assignment_4
 {
     public class TestStartup
     {
@@ -18,12 +18,14 @@ namespace Assignment_4.Test
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers().AddNewtonsoftJson();
+            services.AddAutoMapper(typeof(TestStartup));
+            services.AddControllers();
             services.AddScoped<IActorService, ActorService>();
             services.AddSingleton<IProducerService, ProducerService>();
             services.AddSingleton<IMovieService, MovieService>();
             services.AddSingleton<IGenreService, GenreService>();
             services.AddSingleton<IReviewService, ReviewService>();
+            services.AddAutoMapper(typeof(Startup));
             //services.AddSingleton<IProducerRepository, ProducerRepository>();
             //services.AddSingleton<IActorRepository, ActorRepository>();
             //services.AddSingleton<IMovieRepository, MovieRepository>();

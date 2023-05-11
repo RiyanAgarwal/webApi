@@ -1,62 +1,60 @@
-﻿Feature: reviews feature
+﻿Feature: Reviews feature
 All operations related to reviews
 
 Scenario: Get existing review from repository
-	When the review is fetched with Id 1
-	Then the review must be displayed
-	And status code "200 OK" is returned
+	When a GET request is made 'api/reviews/1'
+	Then the response must be '{"id":1,"movieId":1,"message":"--"}'
+	And status code '200' is returned
 
 Scenario: Get non existing review from repository
-	When the review is fetched with Id 0
-	Then status code "400 Bad Request" is returned
+	When a GET request is made 'api/reviews/0'
+	Then status code '404' is returned
 
 Scenario: Get all reviews from repository
-	When the reviews are fetched
-	Then list of reviews are displayed
+	When a GET request is made 'api/reviews'
+	Then the response must be '[{"id":1,"movieId":1,"message":"--"},{"id":2,"movieId":1,"message":"--"}]'
+	And status code '200' is returned
 
 Scenario Outline: Add new review with invalid details
-	Given the following data is entered <Message>, <MovieId>
-	When the review is added
-	Then the error <Error> is displayed
-	And status code "400 Bad Request" is returned
+	Given the following data is entered '{"movieId":<movieId>,"message":"<Message>"}'
+	When a POST request is made 'api/reviews'
+	Then status code '400' is returned
+	And the response must be '<Error>'
 	Examples: 
-	| Message    | MovieId |   Error		  |
-	|            |    1    |  Invalid message |
-	| Good movie |    0    | Invalid movie id |
+	| movieId | Message		 | Error            |
+	| 0       | good movie   | Invalid movie id |
+	| 1       |				 | Invalid message  |
 
 Scenario: Add new review with valid details
-	Given the review name is "Good movie"
-	And the MovieId is 1
-	When review is added to repository
-	Then status code "201 Created" is returned
-	And review id 1 is displayed
+	Given the following data is entered '{"movieId":1,"message":"--"}'
+	When a POST request is made 'api/reviews'
+	Then status code '201' is returned
+	And the response must be '2'
 
 Scenario: Delete existing review from repository
-	When the review with Id 1 is deleted
-	Then status code "200 OK" is returned
+	When a DELETE request is made 'api/reviews/1'
+	Then status code '200' is returned
 
 Scenario: Delete non existing review from repository
-	When the review with Id 0 is deleted
-	Then status code "400 Bad Request" is returned
+	When a DELETE request is made 'api/reviews/0'
+	Then status code '404' is returned
 
 Scenario: Update non existing review from repository
-	When the review with Id 0 is updated
-	Then status code "400 Bad Request" is returned
+	Given the following data is entered '{"movieId":1,"message":"--"}'
+	When a PUT request is made 'api/reviews/0'
+	Then status code '400' is returned
 
 Scenario Outline: Update existing review with invalid details
-	Given the following data is entered <Message>, <MovieId>
-	And the review id is 1
-	When the review is updated
-	Then the error <Error> is displayed
-	And status code "400 Bad Request" is returned
+	Given the following data is entered '{"movieId":<movieId>,"message":"<Message>"}'
+	When a PUT request is made 'api/reviews/1'
+	Then the response must be '<Error>'
+	And status code '400' is returned
 	Examples: 
-	| Message    | MovieId |   Error		  |
-	|            |    1    |  Invalid message |
-	| Good movie |    0    | Invalid movie id |
+	| movieId | Message		 | Error            |
+	| 0       | good movie   | Invalid movie id |
+	| 1       |				 | Invalid message  |
 
 Scenario: Update review with valid details
-	Given the review id is 1
-	And the review message is "Good movie"
-	And the MovieId 1
-	When review is updated
-	Then status code "200 OK" is returned
+	Given the following data is entered '{"movieId":1,"message":"<Message>"}'
+	When a PUT request is made '/api/reviews/1'
+	Then status code '200' is returned
