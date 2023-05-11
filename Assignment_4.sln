@@ -3,9 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assignment_4", "Assignment_4.csproj", "{E82ADCE9-3090-42A5-8DB4-60D58D65D79D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assignment_4", "Assignment_4\Assignment_4.csproj", "{E82ADCE9-3090-42A5-8DB4-60D58D65D79D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IMDB.Test", "..\IMDB.Test\IMDB.Test.csproj", "{5C2EDD92-C0AD-468C-85D7-205F588AA4E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assignment_4.Test", "Assignment_4.Test\Assignment_4.Test.csproj", "{5C2EDD92-C0AD-468C-85D7-205F588AA4E0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{E82ADCE9-3090-42A5-8DB4-60D58D65D79D} = {E82ADCE9-3090-42A5-8DB4-60D58D65D79D}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

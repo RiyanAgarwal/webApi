@@ -5,17 +5,17 @@ using System.CodeDom.Compiler;
 using global::System.Runtime.CompilerServices;
 
 [assembly: global::Xunit.TestFramework("TechTalk.SpecFlow.xUnit.SpecFlowPlugin.XunitTestFrameworkWithAssemblyFixture", "TechTalk.SpecFlow.xUnit.SpecFlowPlugin")]
-[assembly: global::TechTalk.SpecFlow.xUnit.SpecFlowPlugin.AssemblyFixture(typeof(global::IMDB_Test_XUnitAssemblyFixture))]
+[assembly: global::TechTalk.SpecFlow.xUnit.SpecFlowPlugin.AssemblyFixture(typeof(global::Assignment_4_Test_XUnitAssemblyFixture))]
 
 [GeneratedCode("SpecFlow", "3.9.40")]
-public class IMDB_Test_XUnitAssemblyFixture : global::System.IDisposable
+public class Assignment_4_Test_XUnitAssemblyFixture : global::System.IDisposable
 {
     private readonly global::System.Reflection.Assembly _currentAssembly;
 
     [MethodImpl(MethodImplOptions.NoInlining)]
-    public IMDB_Test_XUnitAssemblyFixture()
+    public Assignment_4_Test_XUnitAssemblyFixture()
     {
-        _currentAssembly = typeof(IMDB_Test_XUnitAssemblyFixture).Assembly;
+        _currentAssembly = typeof(Assignment_4_Test_XUnitAssemblyFixture).Assembly;
         global::TechTalk.SpecFlow.TestRunnerManager.OnTestRunStart(_currentAssembly);
     }
 
@@ -27,7 +27,7 @@ public class IMDB_Test_XUnitAssemblyFixture : global::System.IDisposable
 }
 
 [global::Xunit.CollectionDefinition("SpecFlowNonParallelizableFeatures", DisableParallelization = true)]
-public class IMDB_Test_SpecFlowNonParallelizableFeaturesCollectionDefinition
+public class Assignment_4_Test_SpecFlowNonParallelizableFeaturesCollectionDefinition
 {
 }
 #pragma warning restore
