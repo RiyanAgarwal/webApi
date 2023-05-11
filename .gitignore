@@ -9,7 +9,7 @@ dist/
 
 # Compiled Java class files
 *.class
-
+*.dll
 # Compiled Python bytecode
 *.py[cod]
 
@@ -18,7 +18,9 @@ dist/
 
 # Package files
 *.jar
-
+bin/
+obj/
+.vs/
 # Maven
 target/
 dist/
