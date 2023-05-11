@@ -42,7 +42,7 @@ namespace Assignment_4.Test.MockResources
         }
         public static void MockGet()
         {
-            MovieRepoMock.Setup(x => x.Get(It.IsAny<int>())).Returns<int>(x => (x > 0) ? ListOfMovies.Find(z => z.Id == x) : null);
+            MovieRepoMock.Setup(x => x.Get(It.IsAny<int>())).Returns<int>(x => ListOfMovies.Find(z => z.Id == x));
         }
         public static void MockGetActors()
         {

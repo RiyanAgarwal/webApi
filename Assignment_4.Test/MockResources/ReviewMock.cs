@@ -34,7 +34,7 @@ namespace Assignment_4.Test.MockResources
         }
         public static void MockGet()
         {
-            ReviewRepoMock.Setup(x => x.Get(It.IsAny<int>())).Returns<int>(x => (x > 0) ? ListOfReviews.Find(z => z.Id == x) : null);
+            ReviewRepoMock.Setup(x => x.Get(It.IsAny<int>())).Returns<int>(x => ListOfReviews.Find(z => z.Id == x));
         }
         public static void MockAdd()
         {

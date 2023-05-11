@@ -38,7 +38,7 @@ namespace Assignment_4.Test.MockResources
         }
         public static void MockGet()
         {
-            ActorRepoMock.Setup(x => x.Get(It.IsAny<int>())).Returns<int>(x => (x > 0) ? ListOfActors.Find(z=>z.Id==x): null);
+            ActorRepoMock.Setup(x => x.Get(It.IsAny<int>())).Returns<int>(x =>ListOfActors.Find(z=>z.Id==x));
         }
         public static void MockAdd()
         {

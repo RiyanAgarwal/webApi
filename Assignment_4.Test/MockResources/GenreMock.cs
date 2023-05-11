@@ -32,7 +32,7 @@ namespace Assignment_4.Test.MockResources
         }
         public static void MockGet()
         {
-            GenreRepoMock.Setup(x => x.Get(It.IsAny<int>())).Returns<int>(x => (x > 0) ? ListOfGenres.Find(z => z.Id == x) : null);
+            GenreRepoMock.Setup(x => x.Get(It.IsAny<int>())).Returns<int>(x =>ListOfGenres.Find(z => z.Id == x));
         }
         public static void MockAdd()
         {

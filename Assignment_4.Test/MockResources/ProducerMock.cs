@@ -38,7 +38,7 @@ namespace Assignment_4.Test.MockResources
         }
         public static void MockGet()
         {
-            ProducerRepoMock.Setup(x => x.Get(It.IsAny<int>())).Returns<int>(x => (x > 0) ? ListOfProducers.Find(z => z.Id == x) : null);
+            ProducerRepoMock.Setup(x => x.Get(It.IsAny<int>())).Returns<int>(x =>ListOfProducers.Find(z => z.Id == x));
         }
         public static void MockAdd()
         {
