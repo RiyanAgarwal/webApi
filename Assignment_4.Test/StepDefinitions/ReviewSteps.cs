@@ -22,7 +22,6 @@ namespace Assignment_4.Test.StepFiles
                     services.AddScoped(x => ProducerMock.ProducerRepoMock.Object);
                     services.AddScoped(x =>ActorMock.ActorRepoMock.Object);
                     services.AddScoped(x =>GenreMock.GenreRepoMock.Object);
-
                 });
             }))
         { 

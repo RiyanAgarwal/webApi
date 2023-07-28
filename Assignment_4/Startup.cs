@@ -30,6 +30,15 @@ namespace Assignment_4
             services.AddSingleton<IReviewRepository, ReviewRepository>();
             services.AddAutoMapper(typeof(Startup));
             services.AddControllers();
+            services.AddCors(options=>{
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.WithOrigins("*.")
+                                            .AllowAnyHeader()
+                                            .AllowAnyMethod();
+                    });
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -41,6 +50,13 @@ namespace Assignment_4
 
             app.UseRouting();
 
+            app.UseCors(builder =>
+            {
+                builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+            });
             app.UseEndpoints(endpoints => endpoints.MapControllers());
         }
     }

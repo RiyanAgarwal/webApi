@@ -44,7 +44,7 @@ namespace Assignment_4.Test.StepFiles
             Assert.Equal(expectedStatusCode, Response.StatusCode);
         }
 
-        [Then(@"the response must be '(.*)'")]
+        [Then(@"the response must be '([^']*)'")]
         public void CompareResponseData(string p0)
         {
             var responseData = Response.Content.ReadAsStringAsync().GetAwaiter().GetResult();

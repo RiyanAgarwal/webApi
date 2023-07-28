@@ -21,17 +21,11 @@ namespace Assignment_4
             services.AddAutoMapper(typeof(TestStartup));
             services.AddControllers();
             services.AddScoped<IActorService, ActorService>();
-            services.AddSingleton<IProducerService, ProducerService>();
-            services.AddSingleton<IMovieService, MovieService>();
-            services.AddSingleton<IGenreService, GenreService>();
-            services.AddSingleton<IReviewService, ReviewService>();
+            services.AddScoped<IProducerService, ProducerService>();
+            services.AddScoped<IMovieService, MovieService>();
+            services.AddScoped<IGenreService, GenreService>();
+            services.AddScoped<IReviewService, ReviewService>();
             services.AddAutoMapper(typeof(Startup));
-            //services.AddSingleton<IProducerRepository, ProducerRepository>();
-            //services.AddSingleton<IActorRepository, ActorRepository>();
-            //services.AddSingleton<IMovieRepository, MovieRepository>();
-            //services.AddSingleton<IGenreRepository, GenreRepository>();
-            //services.AddSingleton<IReviewRepository, ReviewRepository>();
-
             // TODO: Register Mock Implementations
         }
 

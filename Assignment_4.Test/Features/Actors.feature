@@ -24,7 +24,7 @@ Scenario Outline: Add new actor with invalid details
 	| Name        | DOB		   | Bio		| Gender | Message		  |
 	| Chris Evans | 2000-10-10 | Good actor |        | Invalid gender |
 	|             | 2000-10-10 | Good actor |  Male  | Invalid name   |
-	| Chris Evans | 2025-10-10 | Good actor |  Male  | Invalid date    |
+	| Chris Evans | 2025-10-10 | Good actor |  Male  | Invalid date   |
 	| Chris Evans | 2000-10-10 |            |  Male  | Invalid bio    |
 
 Scenario: Add new actor with valid details
